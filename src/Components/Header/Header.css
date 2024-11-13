@@ -1,0 +1,6 @@
+.header-bg-container {
+    display: flex;
+    justify-content: space-between;
+    background-color: '#83214F';
+    width: 100%;
+}
