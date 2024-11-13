@@ -1,4 +1,6 @@
-.home-bg-container {}
+.home-bg-container {
+    padding: 20px;
+}
 
 .each-carousel {
     margin-top: 0px;
@@ -19,6 +21,10 @@
 
 .homepage-bottom-container {
     margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .content-containers {
@@ -28,24 +34,19 @@
     align-items: center;
 }
 
-/* .content-container {
-    width: 45%;
-    background-color: '#FAF1F8';
-} */
-
 .content-container {
-    width: 40%;
-    background-color: #83214F;
-    /* Removed the single quotes */
+    /* width: 100%; */
+    width: 50%;
+    /* background-color: #83214F;
     padding: 10px;
     border-radius: 8px;
-    /* Optional: adds rounded corners */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
+    margin-right: 10px; */
 }
 
 .card-image {
@@ -69,5 +70,24 @@
     text-decoration: none;
     color: inherit;
     width: 40%;
-    border: 2px solid red;
+}
+
+.content-sub-container {
+    display: flex;
+    width: 95%;
+    background-color: #83214F;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.content-main-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
 }
