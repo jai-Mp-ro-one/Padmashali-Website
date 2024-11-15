@@ -91,3 +91,19 @@
     display: flex;
     justify-content: space-between;
 }
+
+
+@media (max-width: 768px) {
+    .home-image {
+        height: 50vh;
+        /* Reduced height on mobile devices */
+        object-fit: cover;
+    }
+}
+
+@media (max-width: 480px) {
+    .home-image {
+        height: 40vh;
+        /* Further reduced height for smaller screens */
+    }
+}

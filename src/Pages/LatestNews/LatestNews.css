@@ -1,0 +1,26 @@
+.news-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 20px;
+}
+
+.news-card {
+    height: 200px;
+    background-color: #83214F !important;
+    padding: 10px;
+}
+
+.news-heading {
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.news-description {
+    font-size: 15px;
+    color: #ffffff !important;
+    margin-bottom: 20px;
+
+}

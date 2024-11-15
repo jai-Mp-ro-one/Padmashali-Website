@@ -4,12 +4,26 @@ import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { useNavigate } from "react-router";
 import { Grid, Box } from "@mui/material";
+import { useSelector } from "react-redux";
 
 const HomePage = () => {
     const navigate = useNavigate();
+    const isLoggedIn = useSelector((state) => state.isLoggedIn);
 
-    const handleCardClick = () => {
-        navigate('/latestnews');
+    const handleNewsCardClick = () => {
+        if (isLoggedIn) {
+            navigate('/latestnews');
+        } else {
+            navigate('/login');
+        }
+    };
+
+    const handleEventsCardClick = () => {
+        if (isLoggedIn) {
+            navigate('/events');
+        } else {
+            navigate('/login');
+        }
     };
 
     const bannerImages = [
@@ -50,7 +64,7 @@ const HomePage = () => {
 
                 <Grid container spacing={0} className="content-main-container">
                     <Grid item xs={12} sm={6} md={6}>
-                        <Box onClick={handleCardClick} className='content-sub-container'>
+                        <Box onClick={handleNewsCardClick} className='content-sub-container'>
                             <div>
                                 <h1 className="card-heading">Latest News</h1>
                                 <p className="card-content">
@@ -62,7 +76,7 @@ const HomePage = () => {
                     </Grid>
 
                     <Grid item xs={12} sm={6} md={6} >
-                        <Box className='content-sub-container'>
+                        <Box className='content-sub-container' onClick={handleEventsCardClick}>
                             <div>
                                 <h1 className="card-heading">Events</h1>
                                 <p className="card-content">

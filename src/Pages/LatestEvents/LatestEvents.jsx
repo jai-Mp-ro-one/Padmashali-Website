@@ -1,3 +1,19 @@
+// import React, { useState } from "react";
+// import "./LatestEvents.css";
+// import "react-responsive-carousel/lib/styles/carousel.min.css";
+
+// const LatestEvents = () => {
+
+//     return (
+//         <div className="home-bg-container">
+//             <p>This is Latest Events</p>
+//         </div>
+//     );
+// };
+
+// export default LatestEvents
+
+
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import APIServices from "../../APIServices/APIServices";
@@ -8,14 +24,14 @@ import {
     Typography,
     Box,
 } from "@mui/material";
-import './LatestNews.css'
+import './LatestEvents.css'
 
-const LatestNews = () => {
+const LatestEvents = () => {
     const [latestNews, setLatestNews] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
-        APIServices.getAllLatestNews()
+        APIServices.getAllEvents()
             .then((response) => {
                 setLatestNews(response.data);
             })
@@ -25,19 +41,19 @@ const LatestNews = () => {
     }, []);
 
     const handleCardClick = (newsId) => {
-        navigate(`/news-details?news_id=${newsId}`);
+        navigate(`/event-details?event_id=${newsId}`);
     };
 
     return (
         <Box sx={{ padding: 4 }}>
             <Typography variant="h4" gutterBottom align="center">
-                Latest News
+                Events
             </Typography>
             <Grid container spacing={4}>
                 {latestNews.map((news) => (
                     <Grid item key={news.news_id} xs={12} sm={6} md={4} lg={3}>
                         <Card
-                            onClick={() => handleCardClick(news.news_id)}
+                            onClick={() => handleCardClick(news.event_id)}
                             sx={{
                                 cursor: "pointer",
                                 transition: "transform 0.2s",
@@ -57,14 +73,21 @@ const LatestNews = () => {
                                     noWrap
                                     className="news-description"
                                 >
-                                    {news.news}
+                                    {news.event_title}
                                 </Typography>
                                 <Typography
                                     variant="caption"
                                     display="block"
                                     sx={{ marginTop: 1, color: "gray" }}
                                 >
-                                    {news.posted_date}
+                                    {news.description}
+                                </Typography>
+                                <Typography
+                                    variant="caption"
+                                    display="block"
+                                    sx={{ marginTop: 1, color: "gray" }}
+                                >
+                                    {news.event_date}
                                 </Typography>
                             </CardContent>
                         </Card>
@@ -75,4 +98,4 @@ const LatestNews = () => {
     );
 };
 
-export default LatestNews;
+export default LatestEvents;

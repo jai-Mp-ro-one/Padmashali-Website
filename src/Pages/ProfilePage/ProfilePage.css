@@ -1,0 +1,19 @@
+.profile-page-container {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+
+
+}
+
+.MuiAvatar-root {
+    margin-bottom: 20px;
+}
+
+h5 {
+    margin-top: 20px;
+}
+
+.MuiDivider-root {
+    margin: 10px 0;
+}
