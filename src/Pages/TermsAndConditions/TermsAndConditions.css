@@ -1,0 +1,25 @@
+.terms-container {
+    padding: 20px;
+    background-color: #FAF1F8;
+    border-radius: 8px;
+}
+
+.terms-container h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.terms-container h2 {
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+.terms-container h3 {
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.terms-container p {
+    font-size: 16px;
+    margin-bottom: 10px;
+}

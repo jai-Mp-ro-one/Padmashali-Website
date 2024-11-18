@@ -17,6 +17,9 @@ import { useNavigate } from 'react-router-dom';
 import LatestEvents from './Pages/LatestEvents/LatestEvents';
 import NewsDetails from './Pages/NewsDetails/NewsDetails';
 import EventDetails from './Pages/EventDetails/EventDetails';
+import TermsAndConditions from './Pages/TermsAndConditions/TermsAndConditions';
+import PrivacyAndPolicies from './Pages/PrivacyPolicies/PrivacyPolicies';
+
 
 function App() {
   const dispatch = useDispatch()
@@ -134,6 +137,8 @@ function App() {
               <Route path="/events" element={<LatestEvents />} />
               <Route path="/news-details" element={<NewsDetails />} />
               <Route path="/event-details" element={<EventDetails />} />
+              <Route path="/privacy-policy" element={<PrivacyAndPolicies />} />
+              <Route path="/terms-conditions" element={<TermsAndConditions />} />
             </Routes>
           </>
         )}
