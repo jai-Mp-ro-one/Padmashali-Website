@@ -50,7 +50,7 @@ const privacyAndPolicies = {
 const PrivacyAndPolicies = () => {
     return (
         <div className="privacy-container">
-            <h1>{privacyAndPolicies.privacyHeading}</h1>
+            <h1 className="privacy-heading">{privacyAndPolicies.privacyHeading}</h1>
             <p className="updated-text">{privacyAndPolicies.updatedText}</p>
             <p>{privacyAndPolicies.text1}</p>
 
