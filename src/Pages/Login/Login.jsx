@@ -154,7 +154,7 @@ const LoginPage = () => {
                                 <input
                                     key={index}
                                     id={`otp-input-${index}`}
-                                    type="text"
+                                    type="number"
                                     value={digit}
                                     onChange={(e) => handleOtpChange(index, e.target.value)}
                                     className="otp-input"
