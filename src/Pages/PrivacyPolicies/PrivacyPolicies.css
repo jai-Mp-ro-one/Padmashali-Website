@@ -11,18 +11,18 @@
 h1 {
     color: #83214F;
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 h2,
 h3 {
     color: #333;
-    margin-top: 20px;
+    margin-top: 10px;
+    font-size: 18px;
 }
 
 p {
     color: #555;
-    line-height: 1.6;
 }
 
 .updated-text {
@@ -37,7 +37,7 @@ ul {
 }
 
 ul li {
-    margin-bottom: 8px;
+    margin-bottom: 5px;
 }
 
 @media (max-width: 768px) {
