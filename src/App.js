@@ -139,6 +139,7 @@ function App() {
               <Route path="/event-details" element={<EventDetails />} />
               <Route path="/privacy-policy" element={<PrivacyAndPolicies />} />
               <Route path="/terms-conditions" element={<TermsAndConditions />} />
+
             </Routes>
           </>
         )}
