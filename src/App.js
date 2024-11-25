@@ -138,7 +138,6 @@ function App() {
               <Route path="/news-details" element={<NewsDetails />} />
               <Route path="/event-details" element={<EventDetails />} />
               <Route path="/privacy-policy" element={<PrivacyAndPolicies />} />
-              <Route path="/privacy-policies" element={<PrivacyAndPolicies />} />
               <Route path="/terms-conditions" element={<TermsAndConditions />} />
             </Routes>
           </>
