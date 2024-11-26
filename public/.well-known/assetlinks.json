@@ -3,7 +3,7 @@
     "relation": ["delegate_permission/common.handle_all_urls"],
     "target": {
       "namespace": "android_app",
-      "package_name": "com.padmashaliglobal.app",
+      "package_name": "com.padmashaliglobal",
       "sha256_cert_fingerprints": [
         "C8:94:E3:52:19:CE:13:E7:FD:93:66:A4:AB:EB:B2:CE:91:95:16:0A:C2:37:3C:80:F4:00:CB:9F:24:19:42:C8"
       ]
