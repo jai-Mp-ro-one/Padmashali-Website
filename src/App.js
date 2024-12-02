@@ -19,10 +19,13 @@ import NewsDetails from './Pages/NewsDetails/NewsDetails';
 import EventDetails from './Pages/EventDetails/EventDetails';
 import TermsAndConditions from './Pages/TermsAndConditions/TermsAndConditions';
 import PrivacyAndPolicies from './Pages/PrivacyPolicies/PrivacyPolicies';
+import Payment from './Pages/Payment/Payment'
+import { useLocation } from 'react-router-dom';
 
 
 function App() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const location = useLocation()
   const [refreshTokenExpired, setRefreshTokenExpired] = useState(false);
 
   const token = useSelector((state) => {
@@ -116,10 +119,10 @@ function App() {
   useEffect(() => {
     checkTokenStatus();
   }, [token])
-
+  console.log("location :", location.pathname)
   return (
     <div>
-      <Router>
+      {/* <Router> */}<>
         {refreshTokenExpired ? (
           // <Routes>
           //   <Route path="/login" element={<LoginPage />} />
@@ -127,7 +130,7 @@ function App() {
           <LoginPage />
         ) : (
           <>
-            <Header />
+            {location.pathname !== '/payment' && <Header />}
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/about" element={<AboutPage />} />
@@ -139,10 +142,12 @@ function App() {
               <Route path="/event-details" element={<EventDetails />} />
               <Route path="/privacy-policy" element={<PrivacyAndPolicies />} />
               <Route path="/terms-conditions" element={<TermsAndConditions />} />
+              <Route path="/payment" element={<Payment />} />
             </Routes>
           </>
         )}
-      </Router>
+        {/* </Router> */}
+      </>
     </div>
   );
 }
