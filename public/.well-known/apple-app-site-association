@@ -1,0 +1,11 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+         "appID": "XA2MJ4XL68.com.roone.padmasaliglobal",
+        "paths": ["/app/event/*"]
+      }
+    ]
+  }
+}
