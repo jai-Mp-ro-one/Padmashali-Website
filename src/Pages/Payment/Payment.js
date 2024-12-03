@@ -6,10 +6,12 @@ import { useNavigate } from 'react-router-dom';
 
 const Payment = () => {
     const [loading, setLoading] = useState(false);
+    console.log("loading", loading)
     const navigate = useNavigate()
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const amount = queryParams.get('amount');
+    const donationwithId = queryParams.get("donationwithId")
     const [donationAmount, setDonationAmount] = useState(amount);
     const amountInSubUnit = donationAmount ? parseInt(donationAmount) * 100 : null;
     const currency = 'INR';
@@ -23,7 +25,7 @@ const Payment = () => {
         else {
             navigate('/');
         }
-    }, [amount])
+    }, [amount, navigate])
 
     const handleDonate = async () => {
         if (!amountInSubUnit) {
@@ -113,14 +115,14 @@ const Payment = () => {
 
             if (data.msg === 'success') {
                 console.log('Payment verified successfully:', data);
-                // const redirectUrl = `https://padmasaliglobal.com/app/payment-success?amount=${donationAmount}&donationId=${donationId}&isPaymentSuccess=true`;
+                // const redirectUrl = `https://padmasaliglobal.com/app/payment-success?amount=${donationAmount}&donationwithId=${donationwithId}&isPaymentSuccess=true`;
                 // window.location.href = redirectUrl;
                 // if (window.opener) {
                 //     window.close();
                 // }
                 alert('Payment successful!');
             } else {
-                const redirectUrl = `https://padmasaliglobal.com/app/payment-success?amount=${donationAmount}&donationId=${donationId}&isPaymentSuccess=true`;
+                const redirectUrl = `https://padmasaliglobal.com/app/payment-success?amount=${donationAmount}&donationwithId=${donationwithId}&isPaymentSuccess=true`;
                 window.location.href = redirectUrl;
                 if (window.opener) {
                     window.close();
