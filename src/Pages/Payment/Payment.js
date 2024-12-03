@@ -113,8 +113,18 @@ const Payment = () => {
 
             if (data.msg === 'success') {
                 console.log('Payment verified successfully:', data);
+                // const redirectUrl = `https://padmasaliglobal.com/app/payment-success?amount=${donationAmount}&donationId=${donationId}&isPaymentSuccess=true`;
+                // window.location.href = redirectUrl;
+                // if (window.opener) {
+                //     window.close();
+                // }
                 alert('Payment successful!');
             } else {
+                const redirectUrl = `https://padmasaliglobal.com/app/payment-success?amount=${donationAmount}&donationId=${donationId}&isPaymentSuccess=true`;
+                window.location.href = redirectUrl;
+                if (window.opener) {
+                    window.close();
+                }
                 console.log('Payment verification failed:', data);
                 alert('Payment verification failed.');
             }
