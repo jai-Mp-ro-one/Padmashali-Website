@@ -125,7 +125,7 @@ const Payment = () => {
                 if (window.opener) {
                     window.close();
                 }
-                console.log('Payment verification failed:', data);
+                console.log('Payment verification failed data is :', data);
                 alert('Payment verification failed.');
             }
         } catch (error) {
