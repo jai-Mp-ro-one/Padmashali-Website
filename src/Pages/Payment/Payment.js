@@ -166,6 +166,7 @@ const Payment = () => {
         setTimeout(() => {
             window.location.href = fallbackUrl;
         }, 2000);
+        window.close();
     };
 
     return (
