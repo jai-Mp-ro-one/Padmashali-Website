@@ -26,6 +26,7 @@ const Payment = () => {
         }
     }, [amount, navigate]);
 
+
     const handleDonate = async () => {
         if (!amountInSubUnit) {
             console.log('Invalid donation amount');
@@ -50,26 +51,27 @@ const Payment = () => {
             if (!response.ok) {
                 setLoading(false);
                 const errorText = await response.text();
-                console.error('Server Error:', errorText);
+                console.log('Server Error:', errorText);
                 return;
             }
 
             const razorpayData = await response.json();
-            const { id: order_id } = razorpayData;
-
             const options = {
                 key: RAZORPAY_KEY,
                 amount: amountInSubUnit,
                 currency: currency,
                 name: 'Acme Corp',
                 description: 'Credits towards consultation',
-                order_id: order_id,
+                order_id: razorpayData.order.id,
                 handler: (response) => {
-                    verifyPayment(
-                        response.razorpay_order_id,
-                        response.razorpay_payment_id,
-                        response.razorpay_signature
-                    );
+                    const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = response;
+
+                    if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
+                        console.error('Required fields missing in Razorpay response:', response);
+                        alert('Payment verification failed due to missing information.');
+                        return;
+                    }
+                    verifyPayment(razorpay_order_id, razorpay_payment_id, razorpay_signature);
                 },
                 prefill: {
                     name: 'Hasan',
@@ -83,17 +85,17 @@ const Payment = () => {
 
             const razorpay = new window.Razorpay(options);
             razorpay.open();
-
             razorpay.on('payment.failed', (response) => {
-                console.log('Payment failed:', response.error);
+                console.log('Payment Failed:', response.error);
                 setLoading(false);
-                setIsPaymentComplete(true);
+                setIsPaymentComplete(false);
             });
         } catch (error) {
             setLoading(false);
             console.error('Error in handleDonate:', error);
         }
     };
+
 
     const verifyPayment = async (orderId, paymentId, signature) => {
         try {
@@ -112,9 +114,11 @@ const Payment = () => {
                 }
             );
             const data = await response.json();
-            console.log("payment res data :", data);
+            console.log("payment res sucess data :", data);
 
             if (data.msg === 'success') {
+                alert('Payment successful!');
+                setSuccessPay(true)
                 const paymentDetails = data.paymentDetails;
                 const donationBody = {
                     payment_id: paymentDetails?.id,
@@ -130,15 +134,23 @@ const Payment = () => {
                     membership: false,
                     donation_id: donationwithId,
                 };
-                await APIServices.postDonationDataOfPerson(donationBody);
-                alert('Payment successful!');
-                setSuccessPay(true)
+                await APIServices.postDonationDataOfPerson(donationBody)
+                    .then((res) => {
+                        console.log("post donated person details :", res.data)
+                        if (res.data.message === 'Payment created successfully.') {
+                            setIsPaymentComplete(true);
+                        }
+                    })
+                    .catch((err) => {
+                        console.log("err in posting :", err)
+                    })
             } else {
                 alert('Payment verification failed.');
             }
 
-            setIsPaymentComplete(true);
-        } catch (error) {
+            // setIsPaymentComplete(true);
+        }
+        catch (error) {
             console.error('Error in verifyPayment:', error);
         }
     };
