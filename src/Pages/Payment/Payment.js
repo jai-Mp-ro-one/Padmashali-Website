@@ -1,31 +1,30 @@
-
 import React, { useEffect, useState } from 'react';
-import { useLocation } from "react-router-dom";
-import { useNavigate } from 'react-router-dom';
-
+import { useLocation, useNavigate } from "react-router-dom";
+import APIServices from '../../APIServices/APIServices';
 
 const Payment = () => {
     const [loading, setLoading] = useState(false);
-    console.log("loading", loading)
-    const navigate = useNavigate()
+    const [isPaymentComplete, setIsPaymentComplete] = useState(false);
     const location = useLocation();
+    const navigate = useNavigate();
+
     const queryParams = new URLSearchParams(location.search);
     const amount = queryParams.get('amount');
-    const donationwithId = queryParams.get("donationwithId")
+    const donationwithId = queryParams.get("donationwithId");
+    const profileId = queryParams.get("profile-id");
     const [donationAmount, setDonationAmount] = useState(amount);
     const amountInSubUnit = donationAmount ? parseInt(donationAmount) * 100 : null;
     const currency = 'INR';
     const RAZORPAY_KEY = 'rzp_test_Xje0HJttHA9DVh';
+    const [successPay, setSuccessPay] = useState(false)
 
-    console.log("amount :", amount)
     useEffect(() => {
         if (amount) {
-            handleDonate()
-        }
-        else {
+            handleDonate();
+        } else {
             navigate('/');
         }
-    }, [amount, navigate])
+    }, [amount, navigate]);
 
     const handleDonate = async () => {
         if (!amountInSubUnit) {
@@ -88,6 +87,7 @@ const Payment = () => {
             razorpay.on('payment.failed', (response) => {
                 console.log('Payment failed:', response.error);
                 setLoading(false);
+                setIsPaymentComplete(true);
             });
         } catch (error) {
             setLoading(false);
@@ -112,32 +112,69 @@ const Payment = () => {
                 }
             );
             const data = await response.json();
+            console.log("payment res data :", data);
 
             if (data.msg === 'success') {
-                console.log('Payment verified successfully:', data);
-                // const redirectUrl = `https://padmasaliglobal.com/app/payment-success?amount=${donationAmount}&donationwithId=${donationwithId}&isPaymentSuccess=true`;
-                // window.location.href = redirectUrl;
-                // if (window.opener) {
-                //     window.close();
-                // }
+                const paymentDetails = data.paymentDetails;
+                const donationBody = {
+                    payment_id: paymentDetails?.id,
+                    order_id: paymentDetails?.order_id,
+                    signature: signature,
+                    amount: paymentDetails?.amount / 100,
+                    currency: paymentDetails?.currency,
+                    status: paymentDetails?.status,
+                    payment_method: paymentDetails?.method,
+                    created_at: paymentDetails?.created_at,
+                    profile_id: profileId,
+                    donation: true,
+                    membership: false,
+                    donation_id: donationwithId,
+                };
+                await APIServices.postDonationDataOfPerson(donationBody);
                 alert('Payment successful!');
+                setSuccessPay(true)
             } else {
-                const redirectUrl = `https://padmasaliglobal.com/app/payment-success?amount=${donationAmount}&donationwithId=${donationwithId}&isPaymentSuccess=true`;
-                window.location.href = redirectUrl;
-                if (window.opener) {
-                    window.close();
-                }
-                console.log('Payment verification failed data is :', data);
                 alert('Payment verification failed.');
             }
+
+            setIsPaymentComplete(true);
         } catch (error) {
             console.error('Error in verifyPayment:', error);
         }
     };
 
-    return (
-        <div>
+    const handleRedirectToApp = () => {
+        const appUrl = `https://padmasaliglobal.com/app/payment-success?amount=${donationAmount}&donationwithId=${donationwithId}&isPaymentSuccess=${successPay}`;
+        const fallbackUrl = 'https://play.google.com/store/apps/details?id=com.yourapp.package';
 
+        // Redirect to app
+        window.location.href = appUrl;
+
+        // Fallback to Play Store
+        setTimeout(() => {
+            window.location.href = fallbackUrl;
+        }, 2000);
+    };
+
+    return (
+        <div style={{ textAlign: 'center', marginTop: '50px' }}>
+            {isPaymentComplete ? (
+                <button
+                    onClick={handleRedirectToApp}
+                    style={{
+                        padding: '10px 20px',
+                        backgroundColor: '#83214F',
+                        color: '#fff',
+                        border: 'none',
+                        borderRadius: '5px',
+                        cursor: 'pointer',
+                    }}
+                >
+                    Go to App
+                </button>
+            ) : (
+                <p>Processing payment, please wait...</p>
+            )}
         </div>
     );
 };

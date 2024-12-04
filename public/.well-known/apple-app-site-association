@@ -4,7 +4,10 @@
     "details": [
       {
          "appID": "XA2MJ4XL68.com.roone.padmasaliglobal",
-        "paths": ["/app/event/*"]
+        "paths": [
+          "/app/event/*" ,
+          "/app/payment-success*"
+      ]
       }
     ]
   }

@@ -62,7 +62,9 @@ const getNewsById = (newsId) => {
 const getEventById = (eventId) => {
     return api.get(`event-routes/event?event_id=${eventId}`)
 }
-
+const postDonationDataOfPerson = (body) => {
+    return api.post(`pay/create-payment`, body)
+}
 
 const APIServices = {
     getProfileById,
@@ -75,7 +77,8 @@ const APIServices = {
     handleLogut,
     getAllLatestEvents,
     getNewsById,
-    getEventById
+    getEventById,
+    postDonationDataOfPerson
 }
 
 
