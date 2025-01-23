@@ -1,25 +1,6 @@
-// import React, { useEffect, useState } from "react";
-// import './TermsAndConditions.css';
-
-// const TermsAndConditions = () => {
-//     return (
-//         <div className="news-details-container">
-//             <h1>This is Terms and conditions</h1>
-//         </div>
-//     );
-// };
-
-// export default TermsAndConditions;
-
-
-
 import React from "react";
 import './TermsAndConditions.css';
 
-// Data object for terms and conditions
-
-
-// TermsAndConditions component
 const TermsAndConditions = () => {
     const termsAndConditions = {
         heading: "Terms and Conditions for Padmashali Global",
@@ -95,7 +76,7 @@ const TermsAndConditions = () => {
         point15SubText: "If you have questions about these Terms, please contact us at:",
         point15CompanyName: "Ro-One Technology Private Limited,",
         point15CompanyLocation: "Gundlapalli, Ongole, Andhra Pradesh",
-        point15CompanyEmail: "Email: [Insert Contact Email, e.g., support@padmashaligobal.app]",
+        point15CompanyEmail: "Email:  support@padmashaligobal.app",
     }
     return (
         <div className="terms-container">

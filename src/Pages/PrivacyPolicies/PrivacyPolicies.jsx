@@ -1,17 +1,3 @@
-// import React, { useEffect, useState } from "react";
-// import './PrivacyPolicies.css';
-
-// const PrivacyAndPolicies = () => {
-//     return (
-//         <div className="news-details-container">
-//             <h1>This is privacy and policies</h1>
-//         </div>
-//     );
-// };
-
-// export default PrivacyAndPolicies;
-
-
 import React from "react";
 import './PrivacyPolicies.css';
 
