@@ -35,7 +35,7 @@ const Payment = () => {
 
         try {
             setLoading(true);
-            const response = await fetch('https://jaimp-api.onelovepc.com/jaiMp/payment/order', {
+            const response = await fetch('https://dev.padmasaliglobal.com/jaiMp/payment/order', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -100,7 +100,7 @@ const Payment = () => {
     const verifyPayment = async (orderId, paymentId, signature) => {
         try {
             const response = await fetch(
-                'https://jaimp-api.onelovepc.com/jaiMp/payment/order/validate',
+                'https://dev.padmasaliglobal.com/jaiMp/payment/order/validate',
                 {
                     method: 'POST',
                     headers: {
