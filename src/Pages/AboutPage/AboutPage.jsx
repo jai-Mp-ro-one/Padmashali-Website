@@ -3,7 +3,7 @@ import "./AboutPage.css";
 
 const AboutPage = () => {
     return (
-        <div className="home-bg-container">
+        <div className="about-us-container">
             <h1 className="about-heading">About Padmashali Community</h1>
             <p className="about-content">
                 The **Padmashali** community is one of the prominent and ancient weaving communities of India, primarily known for its rich tradition in textile and handloom industries. The Padmashalis are believed to be the descendants of sage Markandeya, who, according to mythology, was instructed by Lord Shiva to create the art of weaving. This art was passed down through generations, making the Padmashalis highly skilled weavers renowned for their craftsmanship.

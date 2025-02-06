@@ -3,7 +3,7 @@ import './PrivacyPolicies.css';
 
 const privacyAndPolicies = {
     privacyHeading: "Privacy Policy for Padmashali Global",
-    updatedText: "Last Updated: [01/11/2024]",
+    updatedText: "Last Updated: [06/02/2025]",
     text1: "Welcome to Padmashali Global ('App'). This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our App, in compliance with the applicable laws of India and the General Data Protection Regulation (GDPR) for users within the European Union.",
     introduction: "1. Introduction",
     introduction1: "This Privacy Policy is an electronic record in terms of the Information Technology Act, 2000 and rules made thereunder, as amended.",
@@ -29,18 +29,18 @@ const privacyAndPolicies = {
     point10Text1: "We may update our Privacy Policy periodically.",
     point11Heading: "11. Contact Us",
     point11Text1: "For questions, concerns, or complaints, please contact us at:",
-    point11Email: "Email: jaimptrust@gmail.com",
-    point11SupportNumber: "Support: 6380681455"
+    point11Email: "Email: padmashaliglobaltrust@gmail.com",
+    // point11SupportNumber: "Support: 6380681455"
 };
 
 const PrivacyAndPolicies = () => {
     return (
         <div className="privacy-container">
-            <h1 className="privacy-heading">{privacyAndPolicies.privacyHeading}</h1>
-            <p className="updated-text">{privacyAndPolicies.updatedText}</p>
+           <center> <h1 >{privacyAndPolicies.privacyHeading}</h1></center>
+            <p >{privacyAndPolicies.updatedText}</p>
             <p>{privacyAndPolicies.text1}</p>
 
-            <h2>{privacyAndPolicies.introduction}</h2>
+            <h3>{privacyAndPolicies.introduction}</h3>
             <p>{privacyAndPolicies.introduction1}</p>
 
             <h3>{privacyAndPolicies.pointHeading}</h3>
@@ -77,7 +77,7 @@ const PrivacyAndPolicies = () => {
             <h3>{privacyAndPolicies.point11Heading}</h3>
             <p>{privacyAndPolicies.point11Text1}</p>
             <p>{privacyAndPolicies.point11Email}</p>
-            <p>{privacyAndPolicies.point11SupportNumber}</p>
+            {/* <p>{privacyAndPolicies.point11SupportNumber}</p> */}
         </div>
     );
 };

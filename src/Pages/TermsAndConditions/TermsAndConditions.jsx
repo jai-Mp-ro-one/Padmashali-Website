@@ -1,10 +1,11 @@
 import React from "react";
 import './TermsAndConditions.css';
+import '../AboutPage/AboutPage.css'
 
 const TermsAndConditions = () => {
     const termsAndConditions = {
         heading: "Terms and Conditions for Padmashali Global",
-        latestUpdate: "Last Updated: [01/11/2024]",
+        latestUpdate: "Last Updated: [06/02/2025]",
         welcomeText: "Welcome to the Padmashali Global mobile application ('App'). By using this App, you agree to abide by the Terms and Conditions ('Terms of Use') as set out below.",
         welocomeText2: "These Terms govern your use of our services and content and establish a legal agreement between you and Ro-One Technology Private Limited.",
         point1Heading: "1. Definitions",
@@ -72,11 +73,13 @@ const TermsAndConditions = () => {
         point13Text2: " Termination will result in the deletion of all Content associated with your account",
         point14Heading: "14. Governing Law",
         point14Text1: " These Terms are governed by the laws of India, and any disputes shall be subject to the exclusive jurisdiction of the courts located in Ongole, Andhra Pradesh.",
-        point15Heading: "15. Contact Information",
-        point15SubText: "If you have questions about these Terms, please contact us at:",
-        point15CompanyName: "Ro-One Technology Private Limited,",
-        point15CompanyLocation: "Gundlapalli, Ongole, Andhra Pradesh",
-        point15CompanyEmail: "Email:  support@padmashaligobal.app",
+        point15Heading: "15. No Refund Policy",
+        point15Text1: "Please note that there are no refunds for donations or account creation fees. All payments are onetime only and final.",
+        point16Heading: "16. Contact Information",
+        point16SubText: "If you have questions about these Terms, please contact us at:",
+        point16CompanyName: "Ro-One Technology Private Limited,",
+        point16CompanyLocation: "Gundlapalli, Ongole, Andhra Pradesh",
+        point16CompanyEmail: "Email:  padmashaliglobaltrust@gmail.com",
     }
     return (
         <div className="terms-container">
@@ -126,13 +129,28 @@ const TermsAndConditions = () => {
             <h2>{termsAndConditions.point10Heading}</h2>
             <p>{termsAndConditions.point10Text1}</p>
 
+            <h2>{termsAndConditions.point11Heading}</h2>
+            <p>{termsAndConditions.point11Text1}</p>
+
+            <h2>{termsAndConditions.point12Heading}</h2>
+            <p>{termsAndConditions.point12Text1}</p>
+
+            <h2>{termsAndConditions.point13Heading}</h2>
+            <p>{termsAndConditions.point13Text1}</p>
+
+            <h2>{termsAndConditions.point14Heading}</h2>
+            <p>{termsAndConditions.point14Text1}</p>
+
             <h2>{termsAndConditions.point15Heading}</h2>
-            <p>{termsAndConditions.point15SubText}</p>
-            <p>{termsAndConditions.point15CompanyName}</p>
-            <p>{termsAndConditions.point15CompanyLocation}</p>
-            <p>{termsAndConditions.point15CompanyEmail}</p>
+            <p>{termsAndConditions.point15Text1}</p>
+
+            <h2>{termsAndConditions.point16Heading}</h2>
+            <p>{termsAndConditions.point16SubText}</p>
+            <p>{termsAndConditions.point16CompanyName}</p>
+            <p>{termsAndConditions.point16CompanyLocation}</p>
+            <p>{termsAndConditions.point16CompanyEmail}</p>
         </div>
     );
-};
+}
 
 export default TermsAndConditions;

@@ -1,7 +1,7 @@
 // import logo from './logo.svg';
 import { useState } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import HomePage from './Pages/HomePage/HomePage';
 import Header from './Components/Header/Header';
 import AboutPage from './Pages/AboutPage/AboutPage';
@@ -13,7 +13,6 @@ import LoginPage from './Pages/Login/Login';
 import { useSelector, useDispatch } from 'react-redux';
 import { jwtDecode } from "jwt-decode";
 import { setToken, setLoginId, setUniqueDeviceId, setRefreshToken, setProfileData, setIsLoggedIn } from './Redux/Action';
-import { useNavigate } from 'react-router-dom';
 import LatestEvents from './Pages/LatestEvents/LatestEvents';
 import NewsDetails from './Pages/NewsDetails/NewsDetails';
 import EventDetails from './Pages/EventDetails/EventDetails';
@@ -21,6 +20,7 @@ import TermsAndConditions from './Pages/TermsAndConditions/TermsAndConditions';
 import PrivacyAndPolicies from './Pages/PrivacyPolicies/PrivacyPolicies';
 import Payment from './Pages/Payment/Payment'
 import { useLocation } from 'react-router-dom';
+import AboutUs from './Pages/AboutPage/AboutUs';
 
 
 function App() {
@@ -134,6 +134,7 @@ function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/about" element={<AboutPage />} />
+              <Route path="/aboutus" element={<AboutUs />} />
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/latestnews" element={<LatestNews />} />
               <Route path="/login" element={<LoginPage />} />

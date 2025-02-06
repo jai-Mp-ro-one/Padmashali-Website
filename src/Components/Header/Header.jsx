@@ -57,13 +57,14 @@ const Header = () => {
     const menuItems = [
         { text: 'Home', path: '/' },
         { text: 'About', path: '/about', requiresAuth: true },
+        { text: 'About us', path: '/aboutus', requiresAuth: false },
         { text: 'Profile', path: '/profile', requiresAuth: true },
         { text: 'Privacy Policy', path: '/privacy-policy' },
         { text: 'Terms & Conditions', path: '/terms-conditions' },
     ];
 
     return (
-        <AppBar position="static" sx={{ padding: '0 2rem', backgroundColor: '#83214F' }}>
+        <AppBar position="static" sx={{   backgroundColor: '#83214F' }}>
             <Toolbar>
                 {/* Logo and Title */}
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
@@ -83,7 +84,7 @@ const Header = () => {
                         .filter((item) => !item.requiresAuth || isLoggedIn)
                         .map((item) => (
                             <Button key={item.text} color="inherit" component={Link} to={item.path}>
-                                {item.text}
+                                    <ListItemText primary={item.text.charAt(0).toUpperCase() + item.text.slice(1).toLowerCase()} />
                             </Button>
                         ))}
                     {isLoggedIn ? (
@@ -114,7 +115,7 @@ const Header = () => {
                                 .map((item) => (
                                     <ListItem key={item.text} disablePadding>
                                         <ListItemButton component={Link} to={item.path} onClick={toggleDrawer(false)}>
-                                            <ListItemText primary={item.text} />
+                                            <ListItemText primary={item.text.charAt(0).toUpperCase() + item.text.slice(1).toLowerCase()} />
                                         </ListItemButton>
                                     </ListItem>
                                 ))}

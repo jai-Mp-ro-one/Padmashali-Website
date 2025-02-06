@@ -1,25 +1,96 @@
 .terms-container {
-    padding: 20px;
-    background-color: #FAF1F8;
-    border-radius: 8px;
+    margin: auto;
+    max-width: 1000px;
+    padding: 20px; /* added padding for better spacing */
 }
 
 .terms-container h1 {
     font-size: 24px;
+    color: #83214F;
     margin-bottom: 10px;
 }
 
 .terms-container h2 {
-    font-size: 18px;
-    margin-top: 10px;
+    font-size: 17px;
+    color: #83214F;
+    margin-top: 19px; /* Reduced margin above the h2 */
+    margin-bottom: 3px; /* Reduce the space below the h2 */
 }
 
 .terms-container h3 {
-    font-size: 14px;
-    margin-top: 10px;
+    font-size: 16px;
+    margin-left:28px;
+    color: black;
+    margin-top: 10px; /* Reduced margin above the h3 */
+    margin-bottom: 5px; /* Reduce the space below the h3 */
 }
 
 .terms-container p {
-    font-size: 16px;
-    margin-bottom: 10px;
+    font-size: 15px;
+    color: black;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    margin-left:28px;
+}
+
+/* Mobile View Styles */
+@media (max-width: 768px) {
+    .terms-container {
+        padding: 15px; /* Reduced padding for smaller screens */
+        width: 95%; /* Make container width responsive */
+    }
+
+    .terms-container h1 {
+        font-size: 22px; /* Slightly smaller font size on mobile */
+        text-align: center; /* Center-align the heading */
+        margin-bottom: 8px; /* Reduced margin under h1 */
+    }
+
+    .terms-container h2 {
+        font-size: 16px; /* Slightly smaller font size for h2 */
+        margin-top: 12px; /* Reduced margin above h2 */
+        margin-bottom: 4px; /* Reduced margin below h2 */
+    }
+
+    .terms-container h3 {
+        font-size: 12px; /* Slightly smaller font size for h3 */
+        margin-top: 8px; /* Reduced margin above h3 */
+        margin-bottom: 4px; /* Reduced margin below h3 */
+    }
+
+    .terms-container p {
+        font-size: 14px; /* Smaller font size for better readability */
+        margin-top: 4px; /* Reduced margin above paragraphs */
+        margin-bottom: 10px; /* Reduced margin below paragraphs */
+    }
+}
+
+/* Further Adjustments for very small screens (phones) */
+@media (max-width: 480px) {
+    .terms-container {
+        padding: 10px; /* Further reduce padding on very small screens */
+    }
+
+    .terms-container h1 {
+        font-size: 20px; /* Even smaller font size for h1 on smaller screens */
+        margin-bottom: 6px; /* Reduced margin under h1 */
+    }
+
+    .terms-container h2 {
+        font-size: 14px; /* Adjust h2 font size further */
+        margin-top: 8px; /* Reduced margin above h2 */
+        margin-bottom: 3px; /* Reduced margin below h2 */
+    }
+
+    .terms-container h3 {
+        font-size: 10px; /* Adjust h3 font size further */
+        margin-top: 6px; /* Reduced margin above h3 */
+        margin-bottom: 3px; /* Reduced margin below h3 */
+    }
+
+    .terms-container p {
+        font-size: 12px; /* Adjust paragraph font size further */
+        margin-top: 3px; /* Reduced margin above paragraphs */
+        margin-bottom: 8px; /* Reduced margin below paragraphs */
+    }
 }
