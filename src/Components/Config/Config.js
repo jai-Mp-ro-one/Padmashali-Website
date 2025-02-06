@@ -1,6 +1,6 @@
 const apiconfig = {
     develpoment: {
-        apiBaseUrl: 'https://jaimp-api.onelovepc.com/jaiMp/',
+        apiBaseUrl: 'https://dev.padmasaliglobal.com/jaiMp/',
     },
 };
 
