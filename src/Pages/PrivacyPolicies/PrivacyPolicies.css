@@ -1,51 +1,88 @@
 .privacy-container {
-     margin: auto;
-    max-width: 1000px;
     padding: 20px;
+    margin: auto;
+    max-width: 1000px;
 }
 
-h1 {
-    color: #83214F;
-    text-align: center;
-    margin-bottom: 5px;
+.privacy-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #83214F;
+  margin-bottom: 10px;
+  text-align: center;
 }
 
-h2,
-h3 {
-    color: black;
-    margin-top: 10px;
-    font-size: 18px;
+.privacy-text {
+  font-size: 16px;
+  color: #333;
+  line-height: 1.6;
 }
 
-p {
-    color:black;
+.privacy-list {
+  list-style-type: none;
+  padding: 0;
 }
 
-.updated-text {
-    font-weight: bold;
-    color: black;
-    text-align: right;
+.privacy-list li {
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #555;
 }
 
-ul {
-    margin-left: 20px;
-    list-style-type: disc;
+.privacy-list li strong {
+  color: #333;
 }
 
-ul li {
-    margin-bottom: 5px;
+.privacy-sublist {
+  list-style-type: disc;
+  margin-left: 20px;
 }
 
-.privacy-heading {
-    font-size: 25px;
+.privacy-sublist li {
+  font-size: 16px;
+  color: #555;
 }
 
+/* Responsive Design */
+
+/* Tablets (max-width: 768px) */
 @media (max-width: 768px) {
-    .privacy-container {
-        padding: 15px;
-    }
+  .privacy-container {
+    padding: 15px;
+  }
 
-    .privacy-heading {
-        font-size: 20px;
-    }
+  .privacy-title {
+    font-size: 18px;
+  }
+
+  .privacy-text,
+  .privacy-list li,
+  .privacy-sublist li {
+    font-size: 14px;
+  }
+
+  .privacy-sublist {
+    margin-left: 15px;
+  }
+}
+
+/* Mobile Devices (max-width: 480px) */
+@media (max-width: 480px) {
+  .privacy-container {
+    padding: 10px;
+  }
+
+  .privacy-title {
+    font-size: 16px;
+  }
+
+  .privacy-text,
+  .privacy-list li,
+  .privacy-sublist li {
+    font-size: 13px;
+  }
+
+  .privacy-sublist {
+    margin-left: 10px;
+  }
 }

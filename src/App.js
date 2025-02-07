@@ -21,7 +21,7 @@ import PrivacyAndPolicies from './Pages/PrivacyPolicies/PrivacyPolicies';
 import Payment from './Pages/Payment/Payment'
 import { useLocation } from 'react-router-dom';
 import AboutUs from './Pages/AboutPage/AboutUs';
-
+import Refund from './Pages/Refund/Refund';
 
 function App() {
   const dispatch = useDispatch();
@@ -135,6 +135,7 @@ function App() {
               <Route path="/" element={<HomePage />} />
               <Route path="/about" element={<AboutPage />} />
               <Route path="/aboutus" element={<AboutUs />} />
+              <Route path="/refund" element={<Refund />} />
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/latestnews" element={<LatestNews />} />
               <Route path="/login" element={<LoginPage />} />

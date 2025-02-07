@@ -57,7 +57,8 @@ const Header = () => {
     const menuItems = [
         { text: 'Home', path: '/' },
         { text: 'About', path: '/about', requiresAuth: true },
-        { text: 'About us', path: '/aboutus', requiresAuth: false },
+        { text: 'About us', path: '/aboutus'},
+        { text: 'Refund policy', path: '/refund' },
         { text: 'Profile', path: '/profile', requiresAuth: true },
         { text: 'Privacy Policy', path: '/privacy-policy' },
         { text: 'Terms & Conditions', path: '/terms-conditions' },
@@ -99,7 +100,7 @@ const Header = () => {
                 </Box>
 
                 {/* Hamburger Menu for small screens */}
-                <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+                <Box sx={{ display: { xs: 'flex', md: 'none', textTransform:'capitalize' } }}>
                     <IconButton edge="end" color="inherit" aria-label="menu" onClick={toggleDrawer(true)}>
                         <MenuIcon />
                     </IconButton>

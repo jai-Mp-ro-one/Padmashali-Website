@@ -6,6 +6,12 @@
   height: 40vmin;
   pointer-events: none;
 }
+.terms-container {
+    margin: auto;
+    max-width: 1000px;
+    padding: 20px; /* added padding for better spacing */
+}
+
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
@@ -36,3 +42,14 @@
     transform: rotate(360deg);
   }
 }
+
+@media (max-width: 768px) {
+    .terms-container {
+        padding: 15px; /* Reduced padding for smaller screens */
+        width: 95%; /* Make container width responsive */
+    }
+  }
+  @media (max-width: 480px) {
+    .terms-container {
+        padding: 10px; /* Further reduce padding on very small screens */
+    } }
