@@ -18,9 +18,14 @@ const Refund = () => {
         or reversed under any circumstances. We encourage users to review their transactions carefully 
         before proceeding with payments.
       </p>
+      
+    <p className="refund-text">
+        However, if a transaction fails or is in pending and the amount is debited from your account, please contact <strong>padmashaliglobaltrust@gmail.com</strong> for assistance.
+    </p>
+
 
       <p className="refund-text">
-        If you have any concerns or require assistance, please feel free to contact our support team.
+        If you have any concerns or require assistance, please feel free to contact our support team <strong>padmashaliglobaltrust@gmail.com</strong>.
       </p>
 
       <p className="refund-text" style={{ fontWeight: 'bold', marginTop: '20px' }}>
