@@ -35,18 +35,7 @@
 }
 
 .content-container {
-  /* width: 100%; */
   width: 50%;
-  /* background-color: #83214F;
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    margin-right: 10px; */
 }
 
 .card-image {
@@ -104,6 +93,5 @@
   .home-image {
     height: 28vh;
     border-radius: 10px;
-    /* Further reduced height for smaller screens */
   }
 }

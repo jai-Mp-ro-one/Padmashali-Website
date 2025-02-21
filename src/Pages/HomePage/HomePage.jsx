@@ -27,10 +27,6 @@ const HomePage = () => {
     };
 
     const bannerImages = [
-        // "https://padmasalia.org.in/wp-content/uploads/2018/07/Pslider1.jpg",
-        // "https://www.lolaapp.com/wp-content/uploads/2023/12/10-endangered-animals-of-arunachal-pradesh_1.jpg.webp",
-        // "https://cdn.shopify.com/s/files/1/0332/6122/4074/files/pexels-photo-2541239_480x480.jpg?v=1652767922",
-        // "https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
         "Assets/banners1.webp",
         "Assets/banners2.webp",
         "Assets/banners3.webp",
@@ -130,18 +126,6 @@ const HomePage = () => {
                             <img src="Assets/padmashali coummunity leaders.webp" className="card-image" alt="leaders" />
                         </Box>
                     </Grid>
-
-                    {/* <Grid item xs={12} sm={6} md={6}>
-                        <Box className='content-sub-container'>
-                            <div>
-                                <h1 className="card-heading">More Events</h1>
-                                <p className="card-content">
-                                    Ongoing and upcoming events for the community.
-                                </p>
-                            </div>
-                            <img src="https://www.example.com/more-events-image.jpg" className="card-image" alt="more-events" />
-                        </Box>
-                    </Grid> */}
                 </Grid>
             </Box>
         </Box>

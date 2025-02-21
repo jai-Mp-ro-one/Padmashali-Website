@@ -1,19 +1,3 @@
-// import React, { useState } from "react";
-// import "./LatestEvents.css";
-// import "react-responsive-carousel/lib/styles/carousel.min.css";
-
-// const LatestEvents = () => {
-
-//     return (
-//         <div className="home-bg-container">
-//             <p>This is Latest Events</p>
-//         </div>
-//     );
-// };
-
-// export default LatestEvents
-
-
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import APIServices from "../../APIServices/APIServices";
