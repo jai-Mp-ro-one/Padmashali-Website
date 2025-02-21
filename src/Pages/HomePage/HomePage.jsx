@@ -27,12 +27,16 @@ const HomePage = () => {
     };
 
     const bannerImages = [
-        "https://bigcatsindia.com/wp-content/uploads/2018/06/Royal-Bengal-Tiger.jpg",
-        "https://www.lolaapp.com/wp-content/uploads/2023/12/10-endangered-animals-of-arunachal-pradesh_1.jpg.webp",
-        "https://cdn.shopify.com/s/files/1/0332/6122/4074/files/pexels-photo-2541239_480x480.jpg?v=1652767922",
-        "https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+        // "https://padmasalia.org.in/wp-content/uploads/2018/07/Pslider1.jpg",
+        // "https://www.lolaapp.com/wp-content/uploads/2023/12/10-endangered-animals-of-arunachal-pradesh_1.jpg.webp",
+        // "https://cdn.shopify.com/s/files/1/0332/6122/4074/files/pexels-photo-2541239_480x480.jpg?v=1652767922",
+        // "https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+        "Assets/banners1.webp",
+        "Assets/banners2.webp",
+        "Assets/banners3.webp",
+        "Assets/banners4.webp",
+        "Assets/banners5.webp",
     ];
-
     return (
         <Box className="home-bg-container">
             <div className="carousel-containerr">
@@ -45,7 +49,7 @@ const HomePage = () => {
                     showIndicators={false}
                     animationHandler="fade"
                     swipeable={false}
-                    interval={6000}
+                    interval={4000}
                     style={{ width: "100vw" }}
                 >
                     {bannerImages.map((eachImage, index) => (
@@ -61,7 +65,6 @@ const HomePage = () => {
             </div>
 
             <Box className="homepage-bottom-container">
-
                 <Grid container spacing={0} className="content-main-container">
                     <Grid item xs={12} sm={6} md={6}>
                         <Box onClick={handleNewsCardClick} className='content-sub-container'>
@@ -71,7 +74,8 @@ const HomePage = () => {
                                     The Padmasalis claim to be the descendants of these 101 sons and claim that they followed Brahmin rites and customs until Kali Yuga.
                                 </p>
                             </div>
-                            <img src="https://i.pinimg.com/originals/86/ed/d3/86edd3bf5a73f2c2bd64694476021719.jpg" className="card-image" alt="news" />
+                            {/* <img src="https://img.freepik.com/free-vector/global-technology-earth-news-bulletin-background_1017-33687.jpg" className="card-image" alt="news" /> */}
+                            <img src="Assets/padmashalinews.webp" className="card-image" alt="news" />
                         </Box>
                     </Grid>
 
@@ -83,7 +87,7 @@ const HomePage = () => {
                                     Events and activities organized to support the Padmasali community.
                                 </p>
                             </div>
-                            <img src="https://i.pinimg.com/originals/86/ed/d3/86edd3bf5a73f2c2bd64694476021719.jpg" className="card-image" alt="events" />
+                            <img src="Assets/padmashali events.webp" className="card-image" alt="events" />
                         </Box>
                     </Grid>
                 </Grid>
@@ -97,7 +101,7 @@ const HomePage = () => {
                                     Sites dedicated to the Padmashali Sangham community.
                                 </p>
                             </div>
-                            <img src="https://i.pinimg.com/originals/86/ed/d3/86edd3bf5a73f2c2bd64694476021719.jpg" className="card-image" alt="sangham" />
+                            <img src="Assets/padmashali sangham sites.webp" className="card-image" alt="sangham" />
                         </Box>
                     </Grid>
 
@@ -109,7 +113,7 @@ const HomePage = () => {
                                     Free food distribution centers supported by the community.
                                 </p>
                             </div>
-                            <img src="https://i.pinimg.com/originals/86/ed/d3/86edd3bf5a73f2c2bd64694476021719.jpg" className="card-image" alt="sathrams" />
+                            <img src="Assets/padmashali annadanam.webp" className="card-image" alt="sathrams" />
                         </Box>
                     </Grid>
                 </Grid>
@@ -123,11 +127,11 @@ const HomePage = () => {
                                     Leaders of the Padmashali community contributing to its progress.
                                 </p>
                             </div>
-                            <img src="https://i.pinimg.com/originals/86/ed/d3/86edd3bf5a73f2c2bd64694476021719.jpg" className="card-image" alt="leaders" />
+                            <img src="Assets/padmashali coummunity leaders.webp" className="card-image" alt="leaders" />
                         </Box>
                     </Grid>
 
-                    <Grid item xs={12} sm={6} md={6}>
+                    {/* <Grid item xs={12} sm={6} md={6}>
                         <Box className='content-sub-container'>
                             <div>
                                 <h1 className="card-heading">More Events</h1>
@@ -135,13 +139,14 @@ const HomePage = () => {
                                     Ongoing and upcoming events for the community.
                                 </p>
                             </div>
-                            <img src="https://i.pinimg.com/originals/86/ed/d3/86edd3bf5a73f2c2bd64694476021719.jpg" className="card-image" alt="more-events" />
+                            <img src="https://www.example.com/more-events-image.jpg" className="card-image" alt="more-events" />
                         </Box>
-                    </Grid>
+                    </Grid> */}
                 </Grid>
             </Box>
         </Box>
     );
+
 };
 
 export default HomePage;
