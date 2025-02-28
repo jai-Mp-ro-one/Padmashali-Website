@@ -174,16 +174,23 @@ const SBIPage = ({ profileId, donationAmount }) => {
             console.log("🔒 Encrypted Transaction Data:", encryptedTransactionData);
 
             // 🏷️ Prepare FormData for request
-            const formData = new FormData();
-            formData.append("EncryptTrans", encryptedTransactionData);
-            formData.append("merchIdVal", "1000605");
+            // const formData = new FormData();
+            // formData.append("EncryptTrans", encryptedTransactionData);
+            // formData.append("merchIdVal", "1000605");
+            const formBody = new URLSearchParams({
+                EncryptTrans: encryptedTransactionData,
+                merchIdVal: "1000605",
+            }).toString();
 
-            console.log("📦 FormData to Send:", formData);
+            console.log("📦 FormData to Send:", formBody);
 
             // 🛠️ Send Request
             const response = await fetch("https://test.sbiepay.sbi/secure/AggregatorHostedListener", {
                 method: "POST",
-                body: formData,
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                body: formBody,
             });
 
             console.log("✅ Response:", await response.text());
