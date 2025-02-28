@@ -1,8 +1,30 @@
 import React, { useState } from "react";
 import { Base64 } from "js-base64";
+import CryptoJS from "crypto-js";
 
 const SBIPage = ({ profileId, donationAmount }) => {
     const [loading, setLoading] = useState(false);
+
+    const SECRET_KEY = "pWhMnIEMc4q6hKdi2Fx50Ii8CKAoSIqv9ScSpwuMHM4=";
+
+    const encryptAES256 = (data, key) => {
+        try {
+            const keyBytes = CryptoJS.enc.Base64.parse(key); // Decode base64 key
+            const iv = CryptoJS.lib.WordArray.random(16); // Generate random IV
+
+            const encrypted = CryptoJS.AES.encrypt(data, keyBytes, {
+                iv: iv,
+                mode: CryptoJS.mode.CBC,
+                padding: CryptoJS.pad.Pkcs7,
+            });
+
+            // Return Base64 IV + Ciphertext
+            return CryptoJS.enc.Base64.stringify(iv.concat(encrypted.ciphertext));
+        } catch (error) {
+            console.error("Encryption Error:", error);
+            return null;
+        }
+    };
 
     const handleDonate = async () => {
         try {
@@ -29,11 +51,14 @@ const SBIPage = ({ profileId, donationAmount }) => {
             console.log("Transaction Data (Plain):", transactionData);
 
             // Correct Encoding
-            const encodedTransactionData = Base64.encode(transactionData);
-            console.log("Encoded Transaction Data: ", encodedTransactionData);
+            // const encodedTransactionData = Base64.encode(transactionData);
+            // console.log("Encoded Transaction Data: ", encodedTransactionData);
+
+            const encryptedTransactionData = encryptAES256(transactionData, SECRET_KEY);
+            console.log("🔒 Encrypted Transaction Data:", encryptedTransactionData);
 
             const formData = new FormData();
-            formData.append("EncryptTrans", encodedTransactionData);
+            formData.append("EncryptTrans", encryptedTransactionData);
             formData.append("merchIdVal", "1000605");
             // formData.append("EncryptpaymentDetails", "pWhMnIEMc4q6hKdi2Fx50Ii8CKAoSIqv9ScSpwuMHM4=");
             // formData.append("neftRtgsMobileNumber", "");
