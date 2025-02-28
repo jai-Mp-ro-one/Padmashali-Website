@@ -14,13 +14,13 @@ const SBIPage = ({ profileId, donationAmount }) => {
                 "DOM", // Operating Mode
                 "IN", // Merchant Country
                 "INR", // Merchant Currency
-                donationAmount, // Posting Amount
+                100, // Posting Amount
                 "Other", // Other Details
                 "https://test.sbiepay.sbi/secure/sucess3.jsp", // Success URL
                 "https://test.sbiepay.sbi/secure/fail3.jsp", // Fail URL
                 "SBIEPAY",
                 "SbiPadmasali", // Merchant Order No
-                String(profileId), // Merchant Customer ID
+                String(19), // Merchant Customer ID
                 "NB", // Paymode
                 "ONLINE", // Access Medium
                 "ONLINE", // Transaction Source
