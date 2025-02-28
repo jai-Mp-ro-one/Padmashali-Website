@@ -32,30 +32,17 @@ const SBIPage = ({ profileId, donationAmount }) => {
             const encodedTransactionData = Base64.encode(transactionData);
             console.log("Encoded Transaction Data: ", encodedTransactionData);
 
-            // const formData = new FormData();
-            // formData.append("EncryptTrans", encodedTransactionData);
-            // formData.append("merchIdVal", "1000605");
-            // formData.append("EncryptpaymentDetails", "pWhMnIEMc4q6hKdi2Fx50Ii8CKAoSIqv9ScSpwuMHM4=");
-
-            // console.log("FormData: ", formData);
-
-            // const body = {
-            //     EncryptTrans: encodedTransactionData,
-            //     merchIdVal: "1000605",
-            //     EncryptpaymentDetails: "pWhMnIEMc4q6hKdi2Fx50Ii8CKAoSIqv9ScSpwuMHM4="
-            // }
-
             const formData = new FormData();
             formData.append("EncryptTrans", encodedTransactionData);
             formData.append("merchIdVal", "1000605");
-            formData.append("EncryptpaymentDetails", "pWhMnIEMc4q6hKdi2Fx50Ii8CKAoSIqv9ScSpwuMHM4=");
-            formData.append("neftRtgsMobileNumber", "");
+            // formData.append("EncryptpaymentDetails", "pWhMnIEMc4q6hKdi2Fx50Ii8CKAoSIqv9ScSpwuMHM4=");
+            // formData.append("neftRtgsMobileNumber", "");
 
 
             // 🛑 Remove `Content-Type`, let browser set it
             const response = await fetch("https://test.sbiepay.sbi/secure/AggregatorHostedListener", {
                 method: "POST",
-                body: formData, // ✅ Correctly sends as `multipart/form-data`
+                body: formData,
             });
 
             // const formData = new FormData();
