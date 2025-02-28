@@ -32,33 +32,31 @@ const SBIPage = ({ profileId, donationAmount }) => {
             const encodedTransactionData = Base64.encode(transactionData);
             console.log("Encoded Transaction Data: ", encodedTransactionData);
 
+            // const formData = new FormData();
+            // formData.append("EncryptTrans", encodedTransactionData);
+            // formData.append("merchIdVal", "1000605");
+            // formData.append("EncryptpaymentDetails", "pWhMnIEMc4q6hKdi2Fx50Ii8CKAoSIqv9ScSpwuMHM4=");
+
+            // console.log("FormData: ", formData);
+
+            // const body = {
+            //     EncryptTrans: encodedTransactionData,
+            //     merchIdVal: "1000605",
+            //     EncryptpaymentDetails: "pWhMnIEMc4q6hKdi2Fx50Ii8CKAoSIqv9ScSpwuMHM4="
+            // }
+
             const formData = new FormData();
             formData.append("EncryptTrans", encodedTransactionData);
             formData.append("merchIdVal", "1000605");
             formData.append("EncryptpaymentDetails", "pWhMnIEMc4q6hKdi2Fx50Ii8CKAoSIqv9ScSpwuMHM4=");
+            formData.append("neftRtgsMobileNumber", "");
 
-            console.log("FormData: ", formData);
 
-            const body = {
-                EncryptTrans: encodedTransactionData,
-                merchIdVal: "1000605",
-                EncryptpaymentDetails: "pWhMnIEMc4q6hKdi2Fx50Ii8CKAoSIqv9ScSpwuMHM4="
-            }
-
-            const payload = new URLSearchParams();
-            payload.append("EncryptTrans", encodedTransactionData);
-            payload.append("EncryptbillingDetails", "your-encrypted-billing-details");
-            payload.append("merchIdVal", "1000605");
-            payload.append("EncryptpaymentDetails", "your-encrypted-payment-details");
-            payload.append("neftRtgsMobileNumber", "");
-
+            // 🛑 Remove `Content-Type`, let browser set it
             const response = await fetch("https://test.sbiepay.sbi/secure/AggregatorHostedListener", {
                 method: "POST",
-                headers: { "Content-Type": "multipart/form-data" },
-                body: payload,
+                body: formData, // ✅ Correctly sends as `multipart/form-data`
             });
-
-            console.log("response: ", response)
 
             // const formData = new FormData();
             // formData.append("EncryptTrans", encodedTransactionData);
@@ -67,13 +65,13 @@ const SBIPage = ({ profileId, donationAmount }) => {
             // // formData.append("EncryptpaymentDetails", "your-encrypted-payment-details");
             // formData.append("neftRtgsMobileNumber", "");
 
-            // console.log("formData: ", formData)
-            // const response = await fetch("https://dev.padmasaliglobal.com/jaiMp/sbiepay/api/sbiepay", {
+            console.log("formData: ", formData)
+            // const response = await fetch("http://192.168.10.27:8088/jaiMp/sbiepay/api/sbiepay", {
             //     method: "POST",
             //     body: formData,
             // });
 
-            // console.log("Response:", response);
+            console.log("Response:", response);
 
         } catch (error) {
             console.error("Payment initiation error:", error);
