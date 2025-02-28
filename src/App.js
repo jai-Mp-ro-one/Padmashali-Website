@@ -22,6 +22,7 @@ import Payment from './Pages/Payment/Payment'
 import { useLocation } from 'react-router-dom';
 import AboutUs from './Pages/AboutPage/AboutUs';
 import Refund from './Pages/Refund/Refund';
+import SBIPage from './Pages/SbiPage/SbiPaage';
 
 function App() {
   const dispatch = useDispatch();
@@ -145,6 +146,7 @@ function App() {
               <Route path="/privacy-policy" element={<PrivacyAndPolicies />} />
               <Route path="/terms-conditions" element={<TermsAndConditions />} />
               <Route path="/payment" element={<Payment />} />
+              <Route path="/sbi-page" element={<SBIPage />} />
             </Routes>
           </>
         )}
