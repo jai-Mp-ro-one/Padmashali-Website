@@ -1,83 +1,47 @@
 import React, { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const VerifyPayment = () => {
-    const [searchParams] = useSearchParams();
-    const [verificationResponse, setVerificationResponse] = useState(null);
-    const orderNo = searchParams.get("orderNo"); // ✅ Extract orderNo from query params
+    const navigate = useNavigate()
+    const location = useLocation();
 
-    const DOUBLE_VERIFICATION_URL = "https://test.sbiepay.sbi/payagg/statusQuery/getStatusQuery";
+    const [transactionStatus, setTransactionStatus] = useState("");
 
-    // useEffect(() => {
-    //     if (!orderNo) {
-    //         console.error("Order Number not found in URL.");
-    //         return;
-    //     }
+    const queryParams = new URLSearchParams(location.search);
+    const orderNo = queryParams.get('orderNo');
+    const amount = queryParams.get("amount");
+    console.log("orderNo, amount: ", orderNo, amount)
 
-    //     const verifyTransaction = async () => {
-    //         try {
-    //             const formData = new URLSearchParams({
-    //                 queryRequest: `|1000605|${orderNo}|10000`,  // ✅ Required format: |MerchantID|OrderNo|Amount
-    //                 aggregatorId: "SBIEPAY",
-    //                 merchantId: "1000605"
-    //             }).toString();
+    // const appUrl = `https://padmasaliglobal.com/app/payment-success?amount=${donationAmount}&donationwithId=${donationwithId}&isPaymentSuccess=${successPay}`;
+    // const fallbackUrl = 'https://play.google.com/store/apps/details?id=com.yourapp.package';
 
-    //             const response = await fetch(DOUBLE_VERIFICATION_URL, {
-    //                 method: "POST",
-    //                 headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    //                 body: formData
-    //             });
+    // Redirect to app
+    // window.location.href = appUrl;
 
-    //             const data = await response.text();
-    //             console.log("🔍 Verification Response:", data);
-    //             setVerificationResponse(data);
-    //         } catch (error) {
-    //             console.error("❌ Verification Error:", error);
-    //         }
-    //     };
+    // const body = `|1000605|ORD-1740990933669-775|10000`
+    const body = `|1000605|${orderNo}|${amount}`
+    console.log(body)
 
-    //     verifyTransaction();
-    // }, [orderNo]); // ✅ Runs only when orderNo is available
-
-    // Function to format SBIePay's response
-    const formatResponse = (response) => {
-        if (!response) return null;
-
-        const responseArray = response.split("|");
-        return {
-            merchantId: responseArray[0],
-            transactionId: responseArray[1],
-            status: responseArray[2],
-            country: responseArray[3],
-            currency: responseArray[4],
-            orderNo: responseArray[6],
-            amount: responseArray[7],
-            statusDescription: responseArray[8],
-            bankCode: responseArray[9],
-            transactionDate: responseArray[11],
-            paymentMode: responseArray[12]
-        };
-    };
-
-    const parsedResponse = formatResponse(verificationResponse);
 
     return (
         <div>
-            <h2>🔍 Payment Verification</h2>
-            <p><b>Order No:</b> {orderNo}</p>
+            <p><b>Verify Payment</b> Enter Order No. to check status.</p>
 
-            {parsedResponse ? (
+            <form name="ecom"
+                method="post"
+                action="https://test.sbiepay.sbi/payagg/statusQuery/getStatusQuery">
+                <input type="text" name="queryRequest" value={body} />
+                <input type="text" name="aggregatorId" value="SBIEPAY" />
+                <input type="text" name="merchantId" value="1000605" />
+
+                <input type="submit" name="submit" value="Check Status" />
+            </form>
+
+            {transactionStatus && (
                 <div>
-                    <h3>✅ Verification Details:</h3>
-                    <p><b>Status:</b> {parsedResponse.status}</p>
-                    <p><b>Transaction ID:</b> {parsedResponse.transactionId}</p>
-                    <p><b>Amount:</b> {parsedResponse.amount} {parsedResponse.currency}</p>
-                    <p><b>Payment Mode:</b> {parsedResponse.paymentMode}</p>
-                    <p><b>Transaction Date:</b> {parsedResponse.transactionDate}</p>
-                    <p><b>Status Description:</b> {parsedResponse.statusDescription}</p>
+                    <h3>Transaction Status:</h3>
+                    <p>{transactionStatus}</p>
                 </div>
-            ) : (
-                <p>Fetching verification details...</p>
             )}
         </div>
     );
