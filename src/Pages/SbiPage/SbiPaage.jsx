@@ -7,43 +7,94 @@ const SBIPage = ({ profileId, donationAmount }) => {
 
     const SECRET_KEY = "pWhMnIEMc4q6hKdi2Fx50Ii8CKAoSIqv9ScSpwuMHM4=";
 
-    // const encryptAES256 = (data, key) => {
-    //     try {
-    //         const keyBytes = CryptoJS.enc.Base64.parse(key); // Decode base64 key
-    //         const iv = CryptoJS.lib.WordArray.random(16); // Generate random IV
 
-    //         const encrypted = CryptoJS.AES.encrypt(data, keyBytes, {
+    // const deriveKeyAndIV = (keyString) => {
+    //     const keyBytes = CryptoJS.enc.Utf8.parse(keyString);
+    //     const key = CryptoJS.lib.WordArray.create(keyBytes.words.slice(0, 4));
+    //     const iv = CryptoJS.lib.WordArray.create(keyBytes.words.slice(0, 4));
+    //     return { key, iv };
+    // };
+
+    // // Encrypt using AES-256-CBC 
+    // const encryptAES256 = (data, secretKey) => {
+    //     try {
+    //         const { key, iv } = deriveKeyAndIV(secretKey);
+
+    //         const encrypted = CryptoJS.AES.encrypt(data, key, {
     //             iv: iv,
     //             mode: CryptoJS.mode.CBC,
     //             padding: CryptoJS.pad.Pkcs7,
     //         });
 
-    //         // Return Base64 IV + Ciphertext
-    //         return CryptoJS.enc.Base64.stringify(iv.concat(encrypted.ciphertext));
+    //         return encrypted.toString();
     //     } catch (error) {
     //         console.error("Encryption Error:", error);
     //         return null;
     //     }
     // };
 
+    const encryptAES256ECB = (data, secretKey) => {
+        try {
+            const key = CryptoJS.enc.Utf8.parse(secretKey); // 32-byte key for AES-256
+            const encrypted = CryptoJS.AES.encrypt(data, key, {
+                mode: CryptoJS.mode.ECB, // ECB Mode (No IV required)
+                padding: CryptoJS.pad.Pkcs7, // PKCS5/PKCS7 Padding
+            });
 
+            return encrypted.toString();
+        } catch (error) {
+            console.error("Encryption Error:", error);
+            return null;
+        }
+    };
 
-    // const encryptAES256 = (data, key) => {
+    // const handleDonate = async () => {
     //     try {
-    //         const keyBytes = CryptoJS.enc.Base64.parse(key); // Decode Base64 key
-    //         const iv = CryptoJS.lib.WordArray.random(16); // Generate random IV
+    //         setLoading(true);
+    //         const orderNo = `ORD-${Date.now()}`;
 
-    //         const encrypted = CryptoJS.AES.encrypt(data, keyBytes, {
-    //             iv: iv,
-    //             mode: CryptoJS.mode.CBC,
-    //             padding: CryptoJS.pad.Pkcs7,
+    //         const transactionData = [
+    //             "1000605", // Merchant ID
+    //             "DOM", // Operating Mode
+    //             "IN", // Merchant Country
+    //             "INR", // Merchant Currency
+    //             "100", // Posting Amount
+    //             "Other", // Other Details
+    //             "https://test.sbiepay.sbi/secure/sucess3.jsp", // Success URL
+    //             "https://test.sbiepay.sbi/secure/fail3.jsp", // Fail URL
+    //             "SBIEPAY",
+    //             orderNo, // Merchant Order No
+    //             String(19), // Merchant Customer ID
+    //             "NB", // Paymode
+    //             "ONLINE", // Access Medium
+    //             "ONLINE", // Transaction Source
+    //         ].join("|");
+
+    //         console.log("Transaction Data:", transactionData);
+
+    //         const encryptedTransactionData = encryptAES256(transactionData, SECRET_KEY);
+    //         console.log("Encrypted Transaction Data:", encryptedTransactionData);
+    //         const formBody = new URLSearchParams({
+    //             EncryptTrans: encryptedTransactionData,
+    //             merchIdVal: "1000605",
+    //         }).toString();
+
+    //         console.log("FormData to Send:", formBody);
+
+    //         const response = await fetch("https://test.sbiepay.sbi/secure/AggregatorHostedListener", {
+    //             method: "POST",
+    //             headers: {
+    //                 "Content-Type": "application/x-www-form-urlencoded",
+    //             },
+    //             body: formBody,
     //         });
 
-    //         // Concatenating IV + Ciphertext and encoding in Base64
-    //         return CryptoJS.enc.Base64.stringify(iv.concat(encrypted.ciphertext));
+    //         console.log("Response:", await response);
     //     } catch (error) {
-    //         console.error("Encryption Error:", error);
-    //         return null;
+    //         console.error("Payment initiation error:", error);
+    //         alert("Payment Error: Failed to initiate payment. Please try again.");
+    //     } finally {
+    //         setLoading(false);
     //     }
     // };
 
@@ -58,54 +109,50 @@ const SBIPage = ({ profileId, donationAmount }) => {
     //             "DOM", // Operating Mode
     //             "IN", // Merchant Country
     //             "INR", // Merchant Currency
-    //             100, // Posting Amount
+    //             "100", // Posting Amount
     //             "Other", // Other Details
     //             "https://test.sbiepay.sbi/secure/sucess3.jsp", // Success URL
     //             "https://test.sbiepay.sbi/secure/fail3.jsp", // Fail URL
     //             "SBIEPAY",
-    //             "SbiPadmasali", // Merchant Order No
+    //             orderNo, // Merchant Order No
     //             String(19), // Merchant Customer ID
     //             "NB", // Paymode
     //             "ONLINE", // Access Medium
     //             "ONLINE", // Transaction Source
     //         ].join("|");
 
-    //         console.log("Transaction Data (Plain):", transactionData);
-
-    //         // Correct Encoding
-    //         // const encodedTransactionData = Base64.encode(transactionData);
-    //         // console.log("Encoded Transaction Data: ", encodedTransactionData);
+    //         console.log("Transaction Data:", transactionData);
 
     //         const encryptedTransactionData = encryptAES256(transactionData, SECRET_KEY);
-    //         console.log("🔒 Encrypted Transaction Data:", encryptedTransactionData);
+    //         console.log("Encrypted Transaction Data:", encryptedTransactionData);
 
-    //         const formData = new FormData();
-    //         formData.append("EncryptTrans", encryptedTransactionData);
-    //         formData.append("merchIdVal", "1000605");
-    //         // formData.append("EncryptpaymentDetails", "pWhMnIEMc4q6hKdi2Fx50Ii8CKAoSIqv9ScSpwuMHM4=");
-    //         // formData.append("neftRtgsMobileNumber", "");
+    //         // Convert data to x-www-form-urlencoded format
+    //         const formBody = new URLSearchParams({
+    //             EncryptTrans: encryptedTransactionData,
+    //             merchIdVal: "1000605",
+    //         }).toString();
+
+    //         console.log("FormData to Send:", formBody);
 
 
-    //         // 🛑 Remove `Content-Type`, let browser set it
-    //         const response = await fetch("https://test.sbiepay.sbi/secure/AggregatorHostedListener", {
+    //         // Call the backend proxy instead of SBI directly
+    //         const response = await fetch("http://192.168.10.20:8088/jaiMp/sbiepay/proxy-payment", {
     //             method: "POST",
-    //             body: formData,
+    //             headers: {
+    //                 "Content-Type": "application/x-www-form-urlencoded",
+    //             },
+    //             body: formBody,
     //         });
 
-    //         // const formData = new FormData();
-    //         // formData.append("EncryptTrans", encodedTransactionData);
-    //         // // formData.append("EncryptbillingDetails", "your-encrypted-billing-details");
-    //         // formData.append("merchIdVal", "1000605");
-    //         // // formData.append("EncryptpaymentDetails", "your-encrypted-payment-details");
-    //         // formData.append("neftRtgsMobileNumber", "");
+    //         if (!response.ok) {
+    //             throw new Error(`HTTP error! Status: ${response.status}`);
+    //         }
 
-    //         console.log("formData: ", formData)
-    //         // const response = await fetch("http://192.168.10.27:8088/jaiMp/sbiepay/api/sbiepay", {
-    //         //     method: "POST",
-    //         //     body: formData,
-    //         // });
+    //         const responseData = await response.text();
+    //         console.log("Payment Gateway Response:", responseData);
 
-    //         console.log("Response:", response);
+    //         // Handle redirect to payment page if necessary
+    //         document.body.innerHTML += responseData; // Injects the form response (if HTML is returned)
 
     //     } catch (error) {
     //         console.error("Payment initiation error:", error);
@@ -117,75 +164,94 @@ const SBIPage = ({ profileId, donationAmount }) => {
 
 
 
-    // 🔑 Convert Key using the same logic as Java's `readKeyBytes` function
-    const deriveKeyAndIV = (keyString) => {
-        const keyBytes = CryptoJS.enc.Utf8.parse(keyString);
-        const key = CryptoJS.lib.WordArray.create(keyBytes.words.slice(0, 4)); // First 16 bytes for key
-        const iv = CryptoJS.lib.WordArray.create(keyBytes.words.slice(0, 4)); // First 16 bytes for IV
-        return { key, iv };
-    };
+    // const handleDonate = async () => {
+    //     try {
+    //         setLoading(true);
+    //         const orderNo = `ORD-${Date.now()}`;
 
-    // 🔒 Encrypt using AES-256-CBC (Matching Java AES256Bit.encrypt)
-    const encryptAES256 = (data, secretKey) => {
-        try {
-            const { key, iv } = deriveKeyAndIV(secretKey);
+    //         const transactionData = [
+    //             "1000605", "DOM", "IN", "INR", "100", "Other",
+    //             "https://test.sbiepay.sbi/secure/sucess3.jsp",
+    //             "https://test.sbiepay.sbi/secure/fail3.jsp",
+    //             "SBIEPAY", orderNo, String(19), "NB", "ONLINE", "ONLINE"
+    //         ].join("|");
 
-            const encrypted = CryptoJS.AES.encrypt(data, key, {
-                iv: iv,
-                mode: CryptoJS.mode.CBC,
-                padding: CryptoJS.pad.Pkcs7,
-            });
+    //         console.log("Transaction Data:", transactionData);
 
-            return encrypted.toString(); // Returns Base64 encrypted string
-        } catch (error) {
-            console.error("Encryption Error:", error);
-            return null;
-        }
-    };
+    //         const encryptedTransactionData = encryptAES256(transactionData, SECRET_KEY);
+    //         console.log("Encrypted Transaction Data:", encryptedTransactionData);
 
-    // 🔹 Transaction Data
+    //         const formBody = new URLSearchParams({
+    //             EncryptTrans: encryptedTransactionData,
+    //             merchIdVal: "1000605",
+    //         }).toString();
+
+    //         console.log("FormData to Send:", formBody);
+
+    //         const response = await fetch("http://192.168.10.20:8088/jaiMp/sbiepay/proxy-payment", {
+    //             method: "POST",
+    //             headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    //             body: formBody,
+    //         });
+
+    //         if (!response.ok) {
+    //             throw new Error(`HTTP error! Status: ${response.status}`);
+    //         }
+
+    //         const responseData = await response.text();
+    //         console.log("Payment Gateway Response:", responseData);
+
+    //         // Properly inject the SBI payment page
+    //         document.open();
+    //         document.write(responseData);
+    //         document.close();
+
+    //     } catch (error) {
+    //         console.error("Payment initiation error:", error);
+    //         alert("Payment Error: Failed to initiate payment. Please try again.");
+    //     } finally {
+    //         setLoading(false);
+    //     }
+    // };
+
+
     const handleDonate = async () => {
         try {
             setLoading(true);
             const orderNo = `ORD-${Date.now()}`;
 
-            // 🔹 Transaction Data Format
             const transactionData = [
-                "1000605", // Merchant ID
-                "DOM", // Operating Mode
-                "IN", // Merchant Country
-                "INR", // Merchant Currency
-                "100", // Posting Amount
-                "Other", // Other Details
+                "1000605",  // Merchant ID
+                "DOM",      // Operating Mode
+                "IN",       // Merchant Country
+                "INR",      // Merchant Currency
+                "100",      // Posting Amount
+                "Other",    // Other Details
                 "https://test.sbiepay.sbi/secure/sucess3.jsp", // Success URL
-                "https://test.sbiepay.sbi/secure/fail3.jsp", // Fail URL
+                "https://test.sbiepay.sbi/secure/fail3.jsp",   // Fail URL
                 "SBIEPAY",
-                orderNo, // Merchant Order No
-                String(19), // Merchant Customer ID
-                "NB", // Paymode
-                "ONLINE", // Access Medium
-                "ONLINE", // Transaction Source
+                orderNo,     // Merchant Order No
+                "19",        // Merchant Customer ID
+                "NB",        // Paymode
+                "ONLINE",    // Access Medium
+                "ONLINE",    // Transaction Source
             ].join("|");
 
-            console.log("📄 Transaction Data (Plain):", transactionData);
+            console.log("Transaction Data:", transactionData);
 
-            // 🔐 Encrypt the transaction data
-            const encryptedTransactionData = encryptAES256(transactionData, SECRET_KEY);
-            console.log("🔒 Encrypted Transaction Data:", encryptedTransactionData);
+            const encryptedTransactionData = encryptAES256ECB(transactionData, SECRET_KEY);
+            console.log("Encrypted Transaction Data:", encryptedTransactionData);
 
-            // 🏷️ Prepare FormData for request
-            // const formData = new FormData();
-            // formData.append("EncryptTrans", encryptedTransactionData);
-            // formData.append("merchIdVal", "1000605");
+            // Convert data to x-www-form-urlencoded format
             const formBody = new URLSearchParams({
                 EncryptTrans: encryptedTransactionData,
                 merchIdVal: "1000605",
             }).toString();
 
-            console.log("📦 FormData to Send:", formBody);
+            console.log("FormData to Send:", formBody);
 
-            // 🛠️ Send Request
-            const response = await fetch("https://test.sbiepay.sbi/secure/AggregatorHostedListener", {
+            // Call backend proxy API
+            const response = await fetch("https://dev.padmasaliglobal.com/jaiMp/sbiepay/proxy-payment", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded",
@@ -193,14 +259,27 @@ const SBIPage = ({ profileId, donationAmount }) => {
                 body: formBody,
             });
 
-            console.log("✅ Response:", await response.text());
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            // Get HTML response from backend
+            const responseData = await response.text();
+            console.log("Payment Gateway Response:", responseData);
+
+            // Inject the received HTML into the document and execute it
+            const newWindow = window.open("", "_self"); // Open in same tab (use "_blank" for new tab)
+            newWindow.document.write(responseData);
+            newWindow.document.close();
+
         } catch (error) {
-            console.error("❌ Payment initiation error:", error);
+            console.error("Payment initiation error:", error);
             alert("Payment Error: Failed to initiate payment. Please try again.");
         } finally {
             setLoading(false);
         }
     };
+
 
 
     return (
