@@ -218,8 +218,8 @@ const Payment = () => {
         if (donationAmount) {
             const orderNo = `ORD-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
 
-            const successUrl = "https://test.sbiepay.sbi/secure/sucess3.jsp";
-            // const successUrl = `https://padmasaliglobal.com/verifypayment?orderNo=${orderNo}`;
+            // const successUrl = "https://test.sbiepay.sbi/secure/sucess3.jsp";
+            const successUrl = `https://padmasaliglobal.com/verifypayment?orderNo=${orderNo}&amount=${donationAmount}`;
 
             const transactionData = [
                 "1000605",
@@ -272,36 +272,6 @@ const Payment = () => {
             console.error("Encryption Error:", error);
             return null;
         }
-    };
-
-    const handleDonate = async () => {
-        const orderNo = `ORD-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
-
-        const successUrl = "https://test.sbiepay.sbi/secure/sucess3.jsp";
-        // const successUrl = `https://padmasaliglobal.com/verifypayment?orderNo=${orderNo}`;
-
-        const transactionData = [
-            "1000605",
-            "DOM",
-            "IN",
-            "INR",
-            donationAmount,
-            "Other",
-            successUrl,
-            "https://test.sbiepay.sbi/secure/fail3.jsp",
-            "SBIEPAY",
-            orderNo,
-            profileId,
-            "NB",
-            "ONLINE",
-            "ONLINE",
-        ].join("|");
-
-        // console.log("Transaction Data:", transactionData);
-
-        const encryptedData = encryptAES256(transactionData, SECRET_KEY);
-        console.log("Encrypted Transaction Data:", encryptedData);
-        setEncryptedTransaction(encryptedData);
     };
 
     // const verifyPayment = async (orderId, paymentId, signature) => {
