@@ -123,16 +123,25 @@ const VerifyPayment = () => {
         };
         console.log("donationBody: ", donationBody)
 
-        await APIServices.postDonationDataOfPerson(donationBody)
-            .then((res) => {
+        // await APIServices.postDonationDataOfPerson(donationBody)
+        //     .then((res) => {
 
-                if (res.data.message === 'Payment created successfully.') {
-                    console.log("post donated person details :", res.data)
-                }
-            })
-            .catch((err) => {
-                console.log("err in posting :", err)
-            })
+        //         if (res.data.message === 'Payment created successfully.') {
+        //             console.log("post donated person details :", res.data)
+        //             const appUrl = `https://padmasaliglobal.com/app/payment-success?amount=${amount}&donationwithId=${donationId}&isPaymentSuccess=${status}`;
+        //             const fallbackUrl = 'https://play.google.com/store/apps/details?id=com.yourapp.package';
+        //             // Redirect to app
+        //             window.location.href = appUrl;
+        //         }
+        //     })
+        //     .catch((err) => {
+        //         console.log("err in posting :", err)
+        //     })
+
+        const appUrl = `https://padmasaliglobal.com/app/payment-success?amount=${amount}&donationwithId=${donationId}&isPaymentSuccess=${status}`;
+        const fallbackUrl = 'https://play.google.com/store/apps/details?id=com.yourapp.package';
+        // Redirect to app
+        window.location.href = appUrl;
 
 
     }
