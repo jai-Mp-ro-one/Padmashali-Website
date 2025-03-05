@@ -139,9 +139,10 @@ const VerifyPayment = () => {
         //     })
 
         const appUrl = `https://padmasaliglobal.com/app/payment-success?amount=${amount}&donationwithId=${donationId}&isPaymentSuccess=${status}`;
+        console.log("appUrl: ", appUrl)
         const fallbackUrl = 'https://play.google.com/store/apps/details?id=com.yourapp.package';
         // Redirect to app
-        window.location.href = appUrl;
+        // window.location.href = appUrl;
 
 
     }
