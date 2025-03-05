@@ -50,6 +50,10 @@ const handleLogut = () => {
     return api.post("log/logout");
 }
 
+const verifyDonationPayment = (body) => {
+    return api.post("sbiepay/verify-payment", body);
+}
+
 
 const getAllLatestEvents = () => {
     return api.get(`event-routes/events`)
@@ -78,7 +82,8 @@ const APIServices = {
     getAllLatestEvents,
     getNewsById,
     getEventById,
-    postDonationDataOfPerson
+    postDonationDataOfPerson,
+    verifyDonationPayment
 }
 
 

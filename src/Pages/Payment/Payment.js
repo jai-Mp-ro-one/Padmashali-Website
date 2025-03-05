@@ -134,16 +134,16 @@
 //                     membership: false,
 //                     donation_id: donationwithId,
 //                 };
-//                 await APIServices.postDonationDataOfPerson(donationBody)
-//                     .then((res) => {
-//                         console.log("post donated person details :", res.data)
-//                         if (res.data.message === 'Payment created successfully.') {
-//                             setIsPaymentComplete(true);
-//                         }
-//                     })
-//                     .catch((err) => {
-//                         console.log("err in posting :", err)
-//                     })
+// await APIServices.postDonationDataOfPerson(donationBody)
+//     .then((res) => {
+//         console.log("post donated person details :", res.data)
+//         if (res.data.message === 'Payment created successfully.') {
+//             setIsPaymentComplete(true);
+//         }
+//     })
+//     .catch((err) => {
+//         console.log("err in posting :", err)
+//     })
 //             } else {
 //                 alert('Payment verification failed.');
 //             }
@@ -172,19 +172,19 @@
 //     return (
 //         <div style={{ textAlign: 'center', marginTop: '50px' }}>
 //             {isPaymentComplete ? (
-//                 <button
-//                     onClick={handleRedirectToApp}
-//                     style={{
-//                         padding: '10px 20px',
-//                         backgroundColor: '#83214F',
-//                         color: '#fff',
-//                         border: 'none',
-//                         borderRadius: '5px',
-//                         cursor: 'pointer',
-//                     }}
-//                 >
-//                     Go to App
-//                 </button>
+// <button
+//     onClick={handleRedirectToApp}
+//     style={{
+//         padding: '10px 20px',
+//         backgroundColor: '#83214F',
+//         color: '#fff',
+//         border: 'none',
+//         borderRadius: '5px',
+//         cursor: 'pointer',
+//     }}
+// >
+//     Go to App
+// </button>
 //             ) : (
 //                 <p>Processing payment, please wait...</p>
 //             )}
@@ -213,21 +213,21 @@ const Payment = () => {
     const profileId = queryParams.get("profile-id");
     const [encryptedTransaction, setEncryptedTransaction] = useState("");
     const [successPay, setSuccessPay] = useState(false)
-
+    const othersOption = donationwithId ? `${donationwithId}&${profileId}` : `${profileId}`
     useEffect(() => {
         if (donationAmount) {
             const orderNo = `ORD-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
 
             // const successUrl = "https://test.sbiepay.sbi/secure/sucess3.jsp";
-            const successUrl = `https://padmasaliglobal.com/verifypayment?orderNo=${orderNo}&amount=${donationAmount}`;
-
+            // const successUrl = `https://padmasaliglobal.com/verifypayment?orderNo=${orderNo}&amount=${donationAmount}`;
+            const successUrl = "https://dev.padmasaliglobal.com/jaimp/sbiepay/success-response"
             const transactionData = [
                 "1000605",
                 "DOM",
                 "IN",
                 "INR",
                 donationAmount,
-                "Other",
+                othersOption,
                 successUrl,
                 "https://test.sbiepay.sbi/secure/fail3.jsp",
                 "SBIEPAY",
@@ -238,7 +238,7 @@ const Payment = () => {
                 "ONLINE",
             ].join("|");
 
-            // console.log("Transaction Data:", transactionData);
+            console.log("Transaction Data:", transactionData);
 
             const encryptedData = encryptAES256(transactionData, SECRET_KEY);
             console.log("Encrypted Transaction Data:", encryptedData);
@@ -296,31 +296,31 @@ const Payment = () => {
     //         if (data.msg === 'success') {
     //             alert('Payment successful!');
     //             setSuccessPay(true)
-    //             const paymentDetails = data.paymentDetails;
-    //             const donationBody = {
-    //                 payment_id: paymentDetails?.id,
-    //                 order_id: paymentDetails?.order_id,
-    //                 signature: signature,
-    //                 amount: paymentDetails?.amount / 100,
-    //                 currency: paymentDetails?.currency,
-    //                 status: paymentDetails?.status,
-    //                 payment_method: paymentDetails?.method,
-    //                 created_at: paymentDetails?.created_at,
-    //                 profile_id: profileId,
-    //                 donation: true,
-    //                 membership: false,
-    //                 donation_id: donationwithId,
-    //             };
-    //             await APIServices.postDonationDataOfPerson(donationBody)
-    //                 .then((res) => {
-    //                     console.log("post donated person details :", res.data)
-    //                     if (res.data.message === 'Payment created successfully.') {
-    //                         setIsPaymentComplete(true);
-    //                     }
-    //                 })
-    //                 .catch((err) => {
-    //                     console.log("err in posting :", err)
-    //                 })
+    // const paymentDetails = data.paymentDetails;
+    // const donationBody = {
+    //     payment_id: paymentDetails?.id,
+    //     order_id: paymentDetails?.order_id,
+    //     signature: signature,
+    //     amount: paymentDetails?.amount / 100,
+    //     currency: paymentDetails?.currency,
+    //     status: paymentDetails?.status,
+    //     payment_method: paymentDetails?.method,
+    //     created_at: paymentDetails?.created_at,
+    //     profile_id: profileId,
+    //     donation: true,
+    //     membership: false,
+    //     donation_id: donationwithId,
+    // };
+    // await APIServices.postDonationDataOfPerson(donationBody)
+    //     .then((res) => {
+    //         console.log("post donated person details :", res.data)
+    //         if (res.data.message === 'Payment created successfully.') {
+    //             setIsPaymentComplete(true);
+    //         }
+    //     })
+    //     .catch((err) => {
+    //         console.log("err in posting :", err)
+    //     })
     //         } else {
     //             alert('Payment verification failed.');
     //         }
@@ -359,6 +359,14 @@ const Payment = () => {
                 <input
                     type="submit"
                     value="Proceed to Payment"
+                    style={{
+                        padding: '10px 20px',
+                        backgroundColor: '#83214F',
+                        color: '#fff',
+                        border: 'none',
+                        borderRadius: '5px',
+                        cursor: 'pointer',
+                    }}
                 />
             </form>
         </div>

@@ -60,7 +60,8 @@ const SBIPage = ({ profileId, donationAmount }) => {
         const orderNo = `ORD-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
 
         // ✅ Success URL modified to include orderNo in query params
-        const successUrl = "https://test.sbiepay.sbi/secure/sucess3.jsp";
+        // const successUrl = "https://test.sbiepay.sbi/secure/sucess3.jsp";
+        const successUrl = "https://dev.padmasaliglobal.com/jaimp/sbiepay/success-response"
         // const successUrl = `https://padmasaliglobal.com/verifypayment?orderNo=${orderNo}`;
 
         const transactionData = [
