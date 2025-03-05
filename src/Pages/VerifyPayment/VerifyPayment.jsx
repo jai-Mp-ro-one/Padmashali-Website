@@ -107,6 +107,7 @@ const VerifyPayment = () => {
     console.log(body)
 
     const handleRedirectToApp = async () => {
+        console.log('got app ')
         const donationBody = {
             payment_id: paymentId,
             order_id: orderNo,

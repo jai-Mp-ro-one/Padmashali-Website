@@ -213,7 +213,7 @@ const Payment = () => {
     const profileId = queryParams.get("profile-id");
     const [encryptedTransaction, setEncryptedTransaction] = useState("");
     const [successPay, setSuccessPay] = useState(false)
-    const othersOption = donationwithId ? `${donationwithId}&${profileId}` : `${profileId}`
+    const othersOption = donationwithId ? `${donationwithId}&${profileId}` : `0&${profileId}`
     useEffect(() => {
         if (donationAmount) {
             const orderNo = `ORD-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
