@@ -120,15 +120,14 @@ const VerifyPayment = () => {
             profile_id: profileId,
             donation: donationId !== null,
             membership: donationId === null,
-            donation_id: donationId,
+            donation_id: donationId === '0' ? null : donationId,
         };
         console.log("donationBody: ", donationBody)
 
         await APIServices.postDonationDataOfPerson(donationBody)
             .then((res) => {
-
                 if (res.data.message === 'Payment created successfully.') {
-                    if (donationId) {
+                    if (donationId !== '0') {
                         console.log("post donated person details :", res.data)
                         const appUrl = `https://padmasaliglobal.com/app/payment-success?amount=${amount}&donationwithId=${donationId}&isPaymentSuccess=${status}`;
                         const fallbackUrl = 'https://play.google.com/store/apps/details?id=com.padmasali';
