@@ -127,11 +127,20 @@ const VerifyPayment = () => {
             .then((res) => {
 
                 if (res.data.message === 'Payment created successfully.') {
-                    console.log("post donated person details :", res.data)
-                    const appUrl = `https://padmasaliglobal.com/app/payment-success?amount=${amount}&donationwithId=${donationId}&isPaymentSuccess=${status}`;
-                    const fallbackUrl = 'https://play.google.com/store/apps/details?id=com.yourapp.package';
-                    // Redirect to app
-                    window.location.href = appUrl;
+                    if (donationId) {
+                        console.log("post donated person details :", res.data)
+                        const appUrl = `https://padmasaliglobal.com/app/payment-success?amount=${amount}&donationwithId=${donationId}&isPaymentSuccess=${status}`;
+                        const fallbackUrl = 'https://play.google.com/store/apps/details?id=com.padmasali';
+                        // Redirect to app
+                        window.location.href = appUrl;
+                    } else {
+                        console.log("post donated person details :", res.data)
+                        const appUrl = `https://padmasaliglobal.com/app/user?profileId=${profileId}`;
+                        const fallbackUrl = 'https://play.google.com/store/apps/details?id=com.padmasali';
+                        // Redirect to app
+                        window.location.href = appUrl;
+                    }
+
                 }
             })
             .catch((err) => {
