@@ -118,7 +118,7 @@ const VerifyPayment = () => {
             // payment_method: paymentDetails?.method,
             created_at: createdAt,
             profile_id: profileId,
-            donation: donationId !== null,
+            donation: donationId !== "0",
             membership: donationId === null,
             donation_id: donationId === '0' ? null : donationId,
         };
@@ -134,7 +134,7 @@ const VerifyPayment = () => {
                         // Redirect to app
                         window.location.href = appUrl;
                     } else {
-                        console.log("post donated person details :", res.data)
+                        console.log("membership screen")
                         const appUrl = `https://padmasaliglobal.com/app/user?profileId=${profileId}`;
                         const fallbackUrl = 'https://play.google.com/store/apps/details?id=com.padmasali';
                         // Redirect to app
