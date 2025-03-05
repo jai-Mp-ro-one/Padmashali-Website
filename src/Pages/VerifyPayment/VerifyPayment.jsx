@@ -135,7 +135,7 @@ const VerifyPayment = () => {
                         window.location.href = appUrl;
                     } else {
                         console.log("membership screen")
-                        const appUrl = `https://padmasaliglobal.com/app/user?profileId=${profileId}`;
+                        const appUrl = `https://padmasaliglobal.com/app/user/${profileId}`;
                         const fallbackUrl = 'https://play.google.com/store/apps/details?id=com.padmasali';
                         // Redirect to app
                         window.location.href = appUrl;
