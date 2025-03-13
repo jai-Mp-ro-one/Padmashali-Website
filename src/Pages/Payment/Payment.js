@@ -133,7 +133,7 @@ const Payment = () => {
                     profile_id: profileId,
                     donation: donationwithId === 'membership' ? false : true,
                     membership: donationwithId === 'membership' ? true : false,
-                    donation_id: donationwithId,
+                    donation_id: donationwithId === 'membership' ? null : donationwithId,
                 };
 
                 await APIServices.postDonationDataOfPerson(donationBody)
