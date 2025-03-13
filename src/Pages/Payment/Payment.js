@@ -18,6 +18,7 @@ const Payment = () => {
     const RAZORPAY_KEY = 'rzp_test_Xje0HJttHA9DVh';
     const [successPay, setSuccessPay] = useState(false)
 
+
     useEffect(() => {
         if (amount) {
             handleDonate();
@@ -130,10 +131,11 @@ const Payment = () => {
                     payment_method: paymentDetails?.method,
                     created_at: paymentDetails?.created_at,
                     profile_id: profileId,
-                    donation: true,
-                    membership: false,
+                    donation: donationwithId === 'membership' ? false : true,
+                    membership: donationwithId === 'membership' ? true : false,
                     donation_id: donationwithId,
                 };
+
                 await APIServices.postDonationDataOfPerson(donationBody)
                     .then((res) => {
                         console.log("post donated person details :", res.data)
@@ -156,17 +158,34 @@ const Payment = () => {
     };
 
     const handleRedirectToApp = () => {
-        const appUrl = `https://padmasaliglobal.com/app/payment-success?amount=${donationAmount}&donationwithId=${donationwithId}&isPaymentSuccess=${successPay}`;
-        const fallbackUrl = 'https://play.google.com/store/apps/details?id=com.yourapp.package';
 
-        // Redirect to app
-        window.location.href = appUrl;
+        if (donationwithId === 'membership') {
+            console.log("membership screen")
+            const appUrl = `https://padmasaliglobal.com/app/user/${profileId}`;
+            const fallbackUrl = 'https://play.google.com/store/apps/details?id=com.padmasali';
 
-        // Fallback to Play Store
-        setTimeout(() => {
-            window.location.href = fallbackUrl;
-        }, 2000);
-        window.close();
+            // Redirect to app
+            window.location.href = appUrl;
+
+            // Fallback to Play Store
+            setTimeout(() => {
+                window.location.href = fallbackUrl;
+            }, 2000);
+            window.close();
+        } else {
+            const appUrl = `https://padmasaliglobal.com/app/payment-success?amount=${donationAmount}&donationwithId=${donationwithId}&isPaymentSuccess=${successPay}`;
+            const fallbackUrl = 'https://play.google.com/store/apps/details?id=com.yourapp.package';
+
+            // Redirect to app
+            window.location.href = appUrl;
+
+            // Fallback to Play Store
+            setTimeout(() => {
+                window.location.href = fallbackUrl;
+            }, 2000);
+            window.close();
+        }
+
     };
 
     return (
