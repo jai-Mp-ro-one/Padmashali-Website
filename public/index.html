@@ -9,7 +9,6 @@
   <meta name="description" content="Padmashali Global" />
   <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-
   <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
@@ -31,6 +30,18 @@
 
 <body>
   <noscript>Welcome to Padmashali global</noscript>
+  <script>
+    var appLink = 'padmasaliglobal://';
+    var playStoreLink = 'https://play.google.com/store/apps/details?id=com.padmasali&pli=1';
+
+    // Try to open the app
+    window.location.href = appLink;
+
+    // If the app isn't installed, after 2 seconds, redirect to the Play Store
+    setTimeout(() => {
+      window.location.href = playStoreLink;
+    }, 2000);
+  </script>
   <div id="root"></div>
   <!--
       This HTML file is a template.
