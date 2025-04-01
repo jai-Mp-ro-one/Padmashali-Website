@@ -24,6 +24,7 @@ import AboutUs from './Pages/AboutPage/AboutUs';
 import Refund from './Pages/Refund/Refund';
 import SBIPage from './Pages/SbiPage/SbiPaage';
 import VerifyPayment from './Pages/VerifyPayment/VerifyPayment';
+import PaymentFailure from './Pages/Payment/PaymentFailurePage';
 
 function App() {
   const dispatch = useDispatch();
@@ -124,11 +125,8 @@ function App() {
   console.log("location :", location.pathname)
   return (
     <div>
-      {/* <Router> */}<>
+      <>
         {refreshTokenExpired ? (
-          // <Routes>
-          //   <Route path="/login" element={<LoginPage />} />
-          // </Routes>
           <LoginPage />
         ) : (
           <>
@@ -149,6 +147,7 @@ function App() {
               <Route path="/payment" element={<Payment />} />
               <Route path="/sbi-page" element={<SBIPage />} />
               <Route path="/verifypayment" element={<VerifyPayment />} />
+              <Route path="/payment-failed" element={<PaymentFailure />} />
             </Routes>
           </>
         )}
