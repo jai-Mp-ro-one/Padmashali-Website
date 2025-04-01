@@ -130,7 +130,8 @@ function App() {
           <LoginPage />
         ) : (
           <>
-            {location.pathname !== '/payment' && <Header />}
+            {location.pathname !== '/payment' || '/payment-failed' && <Header />}
+            {/* {location.pathname !== '/payment-failed' && <Header />} */}
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/about" element={<AboutPage />} />

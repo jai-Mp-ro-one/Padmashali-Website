@@ -241,6 +241,8 @@ const Payment = () => {
             // const successUrl = "https://test.sbiepay.sbi/secure/sucess3.jsp";
             // const successUrl = `https://padmasaliglobal.com/verifypayment?orderNo=${orderNo}&amount=${donationAmount}`;
             const successUrl = "https://dev.padmasaliglobal.com/jaimp/sbiepay/success-response"
+            // const failureUrl = "https://padmasaliglobal.com/payment-failed"
+            const failureUrl = "https://dev.padmasaliglobal.com/jaimp/sbiepay/failure-response"
             const transactionData = [
                 // "1000605", // Test key
                 1003212,
@@ -250,7 +252,7 @@ const Payment = () => {
                 donationAmount,
                 othersOption,
                 successUrl,
-                "https://test.sbiepay.sbi/secure/fail3.jsp",
+                failureUrl,
                 "SBIEPAY",
                 orderNo,
                 profileId,
