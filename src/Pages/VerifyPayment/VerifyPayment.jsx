@@ -104,10 +104,10 @@ const VerifyPayment = () => {
 
     // const body = `|1000605|ORD-1740990933669-775|10000`
     const body = `|1000605|${orderNo}|${amount}`
-    console.log(body)
+    // console.log(body)
 
     const handleRedirectToApp = async () => {
-        console.log('got app ')
+        // console.log('got app ')
         const donationBody = {
             payment_id: paymentId,
             order_id: orderNo,
@@ -122,15 +122,15 @@ const VerifyPayment = () => {
             membership: donationId === '0',
             donation_id: donationId === '0' ? null : donationId,
         };
-        console.log("donationBody: ", donationBody)
+        // console.log("donationBody: ", donationBody)
 
         if (donationId !== '0') {
-            console.log("post donated person details :", res.data)
+            // console.log("post donated person details :", res.data)
             const appUrl = `https://padmasaliglobal.com/app/payment-success?amount=${amount}&donationwithId=${donationId}&isPaymentSuccess=${status}`;
             const fallbackUrl = 'https://play.google.com/store/apps/details?id=com.padmasali';
             window.location.href = appUrl;
         } else {
-            console.log("membership screen")
+            // console.log("membership screen")
             const appUrl = `https://padmasaliglobal.com/app/user/${profileId}`;
             const fallbackUrl = 'https://play.google.com/store/apps/details?id=com.padmasali';
             window.location.href = appUrl;
@@ -163,9 +163,7 @@ const VerifyPayment = () => {
         // Redirect to app
         // window.location.href = appUrl;
 
-
     }
-
 
     return (
         <div>
