@@ -124,26 +124,38 @@ const VerifyPayment = () => {
         };
         console.log("donationBody: ", donationBody)
 
-        await APIServices.postDonationDataOfPerson(donationBody)
-            .then((res) => {
-                if (res.data.message === 'Payment created successfully.') {
-                    if (donationId !== '0') {
-                        console.log("post donated person details :", res.data)
-                        const appUrl = `https://padmasaliglobal.com/app/payment-success?amount=${amount}&donationwithId=${donationId}&isPaymentSuccess=${status}`;
-                        const fallbackUrl = 'https://play.google.com/store/apps/details?id=com.padmasali';
-                        window.location.href = appUrl;
-                    } else {
-                        console.log("membership screen")
-                        const appUrl = `https://padmasaliglobal.com/app/user/${profileId}`;
-                        const fallbackUrl = 'https://play.google.com/store/apps/details?id=com.padmasali';
-                        window.location.href = appUrl;
-                    }
+        if (donationId !== '0') {
+            console.log("post donated person details :", res.data)
+            const appUrl = `https://padmasaliglobal.com/app/payment-success?amount=${amount}&donationwithId=${donationId}&isPaymentSuccess=${status}`;
+            const fallbackUrl = 'https://play.google.com/store/apps/details?id=com.padmasali';
+            window.location.href = appUrl;
+        } else {
+            console.log("membership screen")
+            const appUrl = `https://padmasaliglobal.com/app/user/${profileId}`;
+            const fallbackUrl = 'https://play.google.com/store/apps/details?id=com.padmasali';
+            window.location.href = appUrl;
+        }
 
-                }
-            })
-            .catch((err) => {
-                console.log("err in posting :", err)
-            })
+        // await APIServices.postDonationDataOfPerson(donationBody)
+        //     .then((res) => {
+        //         if (res.data.message === 'Payment created successfully.') {
+        //             if (donationId !== '0') {
+        //                 console.log("post donated person details :", res.data)
+        //                 const appUrl = `https://padmasaliglobal.com/app/payment-success?amount=${amount}&donationwithId=${donationId}&isPaymentSuccess=${status}`;
+        //                 const fallbackUrl = 'https://play.google.com/store/apps/details?id=com.padmasali';
+        //                 window.location.href = appUrl;
+        //             } else {
+        //                 console.log("membership screen")
+        //                 const appUrl = `https://padmasaliglobal.com/app/user/${profileId}`;
+        //                 const fallbackUrl = 'https://play.google.com/store/apps/details?id=com.padmasali';
+        //                 window.location.href = appUrl;
+        //             }
+
+        //         }
+        //     })
+        //     .catch((err) => {
+        //         console.log("err in posting :", err)
+        //     })
 
         // const appUrl = `https://padmasaliglobal.com/app/payment-success?amount=${amount}&donationwithId=${donationId}&isPaymentSuccess=${status}`;
         // console.log("appUrl: ", appUrl)
