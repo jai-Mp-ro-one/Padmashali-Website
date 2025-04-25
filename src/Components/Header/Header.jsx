@@ -16,7 +16,7 @@ import './Header.css';
 import APIServices from '../../APIServices/APIServices';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-    setIsLoggedIn,
+    // setIsLoggedIn,
     setLoginId,
     setProfileData,
     setRefreshToken,
@@ -29,7 +29,7 @@ const Header = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const isLoggedIn = useSelector((state) => state.isLoggedIn);
+    // const isLoggedIn = useSelector((state) => state.isLoggedIn);
 
     const toggleDrawer = (open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -47,7 +47,7 @@ const Header = () => {
             dispatch(setUniqueDeviceId(null));
             dispatch(setToken(null));
             dispatch(setRefreshToken(null));
-            dispatch(setIsLoggedIn(false));
+            // dispatch(setIsLoggedIn(false));
             navigate('/');
         } catch (error) {
             console.error('Logout failed:', error);
@@ -57,7 +57,7 @@ const Header = () => {
     const menuItems = [
         { text: 'Home', path: '/' },
         { text: 'About', path: '/about', requiresAuth: true },
-        { text: 'About us', path: '/aboutus'},
+        { text: 'About us', path: '/aboutus' },
         { text: 'Refund policy', path: '/refund' },
         { text: 'Profile', path: '/profile', requiresAuth: true },
         { text: 'Privacy Policy', path: '/privacy-policy' },
@@ -65,7 +65,7 @@ const Header = () => {
     ];
 
     return (
-        <AppBar position="static" sx={{   backgroundColor: '#83214F' }}>
+        <AppBar position="static" sx={{ backgroundColor: '#83214F' }}>
             <Toolbar>
                 {/* Logo and Title */}
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
@@ -82,25 +82,17 @@ const Header = () => {
                 {/* Desktop Menu */}
                 <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center' }}>
                     {menuItems
-                        .filter((item) => !item.requiresAuth || isLoggedIn)
+                        .filter((item) => !item.requiresAuth)
                         .map((item) => (
                             <Button key={item.text} color="inherit" component={Link} to={item.path}>
-                                    <ListItemText primary={item.text.charAt(0).toUpperCase() + item.text.slice(1).toLowerCase()} />
+                                <ListItemText primary={item.text.charAt(0).toUpperCase() + item.text.slice(1).toLowerCase()} />
                             </Button>
                         ))}
-                    {isLoggedIn ? (
-                        <Button color="inherit" onClick={handleLogout}>
-                            Logout
-                        </Button>
-                    ) : (
-                        <Button color="inherit" component={Link} to="/login">
-                            Login
-                        </Button>
-                    )}
+
                 </Box>
 
                 {/* Hamburger Menu for small screens */}
-                <Box sx={{ display: { xs: 'flex', md: 'none', textTransform:'capitalize' } }}>
+                <Box sx={{ display: { xs: 'flex', md: 'none', textTransform: 'capitalize' } }}>
                     <IconButton edge="end" color="inherit" aria-label="menu" onClick={toggleDrawer(true)}>
                         <MenuIcon />
                     </IconButton>
@@ -112,7 +104,7 @@ const Header = () => {
                     >
                         <List>
                             {menuItems
-                                .filter((item) => !item.requiresAuth || isLoggedIn)
+                                .filter((item) => !item.requiresAuth)
                                 .map((item) => (
                                     <ListItem key={item.text} disablePadding>
                                         <ListItemButton component={Link} to={item.path} onClick={toggleDrawer(false)}>
@@ -121,15 +113,7 @@ const Header = () => {
                                     </ListItem>
                                 ))}
                             <ListItem disablePadding>
-                                {isLoggedIn ? (
-                                    <ListItemButton onClick={handleLogout}>
-                                        <ListItemText primary="Logout" />
-                                    </ListItemButton>
-                                ) : (
-                                    <ListItemButton component={Link} to="/login" onClick={toggleDrawer(false)}>
-                                        <ListItemText primary="Login" />
-                                    </ListItemButton>
-                                )}
+
                             </ListItem>
                         </List>
                     </Drawer>
