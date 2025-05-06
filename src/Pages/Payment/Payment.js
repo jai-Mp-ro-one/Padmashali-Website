@@ -222,30 +222,27 @@ import { useLocation, useNavigate } from "react-router-dom";
 import CryptoJS from "crypto-js";
 
 const Payment = () => {
-    const [loading, setLoading] = useState(false);
-    const [isPaymentComplete, setIsPaymentComplete] = useState(false);
     const location = useLocation();
     const navigate = useNavigate();
+    const merchantID = process.env.REACT_APP_SBI_MERCHANT_ID
 
     const queryParams = new URLSearchParams(location.search);
     const donationAmount = queryParams.get('amount');
     const donationwithId = queryParams.get("donationwithId");
     const profileId = queryParams.get("profile-id");
     const [encryptedTransaction, setEncryptedTransaction] = useState("");
-    const [successPay, setSuccessPay] = useState(false)
     const othersOption = donationwithId ? `${donationwithId}&${profileId}` : `0&${profileId}`
     useEffect(() => {
         if (donationAmount) {
             const orderNo = `ORD-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
-
             // const successUrl = "https://test.sbiepay.sbi/secure/sucess3.jsp";
             // const successUrl = `https://padmasaliglobal.com/verifypayment?orderNo=${orderNo}&amount=${donationAmount}`;
-            const successUrl = "https://dev.padmasaliglobal.com/jaimp/sbiepay/success-response"
             // const failureUrl = "https://padmasaliglobal.com/payment-failed"
+            const successUrl = "https://dev.padmasaliglobal.com/jaimp/sbiepay/success-response"
             const failureUrl = "https://dev.padmasaliglobal.com/jaimp/sbiepay/failure-response"
             const transactionData = [
-                // "1000605", // Test key
-                1003212,
+                // process.env.REACT_APP_SBI_MERCHANT_TEST_ID,
+                process.env.REACT_APP_SBI_MERCHANT_ID,
                 "DOM",
                 "IN",
                 "INR",
@@ -261,10 +258,8 @@ const Payment = () => {
                 "ONLINE",
             ].join("|");
 
-            console.log("Transaction Data:", transactionData);
 
             const encryptedData = encryptAES256(transactionData, SECRET_KEY);
-            console.log("Encrypted Transaction Data:", encryptedData);
             setEncryptedTransaction(encryptedData);
         } else {
             navigate('/');
@@ -272,9 +267,8 @@ const Payment = () => {
     }, [donationAmount, navigate]);
 
 
-    // const SECRET_KEY = "pWhMnIEMc4q6hKdi2Fx50Ii8CKAoSIqv9ScSpwuMHM4=";  //TEST KEY
-    // const SECRET_KEY = "fo9a6QBf4yA26n1RonRI/lDaIlMKJ8lIscxy2yYNdqs=" //PROD KEY
-    const SECRET_KEY = "fo9a6QBf4yA26n1RonRI/lDaIlMKJ8lIscxy2yYNdqs="
+    const SECRET_KEY = process.env.REACT_APP_SBI //PROD KEY
+    // const SECRET_KEY = process.env.REACT_APP_SBI_MERCHANT_TEST_KEY
 
     const deriveKeyAndIV = (keyString) => {
         const keyBytes = CryptoJS.enc.Utf8.parse(keyString);
@@ -299,90 +293,17 @@ const Payment = () => {
         }
     };
 
-    // const verifyPayment = async (orderId, paymentId, signature) => {
-    //     try {
-    //         const response = await fetch(
-    //             'https://dev.padmasaliglobal.com/jaiMp/payment/order/validate',
-    //             {
-    //                 method: 'POST',
-    //                 headers: {
-    //                     'Content-Type': 'application/json',
-    //                 },
-    //                 body: JSON.stringify({
-    //                     razorpay_order_id: orderId,
-    //                     razorpay_payment_id: paymentId,
-    //                     razorpay_signature: signature,
-    //                 }),
-    //             }
-    //         );
-    //         const data = await response.json();
-    //         console.log("payment res sucess data :", data);
-
-    //         if (data.msg === 'success') {
-    //             alert('Payment successful!');
-    //             setSuccessPay(true)
-    // const paymentDetails = data.paymentDetails;
-    // const donationBody = {
-    //     payment_id: paymentDetails?.id,
-    //     order_id: paymentDetails?.order_id,
-    //     signature: signature,
-    //     amount: paymentDetails?.amount / 100,
-    //     currency: paymentDetails?.currency,
-    //     status: paymentDetails?.status,
-    //     payment_method: paymentDetails?.method,
-    //     created_at: paymentDetails?.created_at,
-    //     profile_id: profileId,
-    //     donation: true,
-    //     membership: false,
-    //     donation_id: donationwithId,
-    // };
-    // await APIServices.postDonationDataOfPerson(donationBody)
-    //     .then((res) => {
-    //         console.log("post donated person details :", res.data)
-    //         if (res.data.message === 'Payment created successfully.') {
-    //             setIsPaymentComplete(true);
-    //         }
-    //     })
-    //     .catch((err) => {
-    //         console.log("err in posting :", err)
-    //     })
-    //         } else {
-    //             alert('Payment verification failed.');
-    //         }
-
-    //         // setIsPaymentComplete(true);
-    //     }
-    //     catch (error) {
-    //         console.error('Error in verifyPayment:', error);
-    //     }
-    // };
-
-    const handleRedirectToApp = () => {
-        const appUrl = `https://padmasaliglobal.com/app/payment-success?amount=${donationAmount}&donationwithId=${donationwithId}&isPaymentSuccess=${successPay}`;
-        const fallbackUrl = 'https://play.google.com/store/apps/details?id=com.yourapp.package';
-
-        // Redirect to app
-        window.location.href = appUrl;
-
-        // Fallback to Play Store
-        setTimeout(() => {
-            window.location.href = fallbackUrl;
-        }, 2000);
-        window.close();
-    };
-
     return (
         <div style={{ textAlign: 'center', marginTop: '50px' }}>
             <form
                 id="sbiPaymentForm"
                 name="ecom"
                 method="post"
-                // action="https://test.sbiepay.sbi/secure/AggregatorHostedListener"
+                // action="https://test.sbiepay.sbi/secure/AggregatorHostedListener" //Test URL
                 action='https://www.sbiepay.sbi/secure/AggregatorHostedListener'
             >
                 <input type="hidden" name="EncryptTrans" value={encryptedTransaction} />
-                {/* <input type="hidden" name="merchIdVal" value="1000605" />1003212 */}
-                <input type="hidden" name="merchIdVal" value="1003212" />
+                <input type="hidden" name="merchIdVal" value={merchantID} />
                 <input
                     type="submit"
                     value="Proceed to Payment"
