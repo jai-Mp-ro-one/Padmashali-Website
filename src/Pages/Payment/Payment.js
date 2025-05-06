@@ -245,7 +245,8 @@ const Payment = () => {
             const failureUrl = "https://dev.padmasaliglobal.com/jaimp/sbiepay/failure-response"
             const transactionData = [
                 // "1000605", // Test key
-                1003212,
+                // 1003212,
+                process.env.SBI_MERCHANT_KEY,
                 "DOM",
                 "IN",
                 "INR",
@@ -272,10 +273,9 @@ const Payment = () => {
     }, [donationAmount, navigate]);
 
 
-    // const SECRET_KEY = "pWhMnIEMc4q6hKdi2Fx50Ii8CKAoSIqv9ScSpwuMHM4=";  //TEST KEY
+    // const SECRET_KEY = process.env.SBI_MERCHANT_TEST_KEY;  //TEST KEY
     // const SECRET_KEY = "fo9a6QBf4yA26n1RonRI/lDaIlMKJ8lIscxy2yYNdqs=" //PROD KEY
-    const SECRET_KEY = "fo9a6QBf4yA26n1RonRI/lDaIlMKJ8lIscxy2yYNdqs="
-
+    const SECRET_KEY = process.env.SBI_MERCHANT_KEY
     const deriveKeyAndIV = (keyString) => {
         const keyBytes = CryptoJS.enc.Utf8.parse(keyString);
         const key = CryptoJS.lib.WordArray.create(keyBytes.words.slice(0, 4));
