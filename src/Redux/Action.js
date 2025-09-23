@@ -14,6 +14,8 @@ export const setProfileData = (data) => {
     };
 };
 
+
+
 export const setIsLoggedIn = (data) => {
     return {
         type: actionTypes.setIsLoggedIn,
