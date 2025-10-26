@@ -10,21 +10,6 @@ const HomePage = () => {
     const navigate = useNavigate();
     const isLoggedIn = useSelector((state) => state.isLoggedIn);
 
-    // const handleNewsCardClick = () => {
-    //     if (isLoggedIn) {
-    //         navigate('/latestnews');
-    //     } else {
-    //         navigate('/login');
-    //     }
-    // };
-
-    // const handleEventsCardClick = () => {
-    //     if (isLoggedIn) {
-    //         navigate('/events');
-    //     } else {
-    //         navigate('/login');
-    //     }
-    // };
 
     const bannerImages = [
         "Assets/banners1.webp",
@@ -36,7 +21,7 @@ const HomePage = () => {
     return (
         <Box className="home-bg-container">
             <div className="carousel-containerr">
-                <Carousel
+                {/* <Carousel
                     showThumbs={false}
                     showStatus={true}
                     autoPlay={true}
@@ -57,7 +42,28 @@ const HomePage = () => {
                             />
                         </div>
                     ))}
+                </Carousel> */}
+                <Carousel
+                    autoPlay
+                    interval={4000}
+                    infiniteLoop
+                    showArrows={false}
+                    showStatus={false}
+                    showThumbs={false}
+                    showIndicators={false}
+                    stopOnHover={false}
+                >
+                    {bannerImages.map((img, index) => (
+                        <div key={index} style={{ width: "100vw", height: "600px", }}>
+                            <img src={img} alt={`images${index}`} style={{
+                                width: "100%",
+                                height: "100%",
+                                objectFit: "cover"
+                            }} />
+                        </div>
+                    ))}
                 </Carousel>
+
             </div>
 
             <Box className="homepage-bottom-container">

@@ -25,6 +25,7 @@ import Refund from './Pages/Refund/Refund';
 import SBIPage from './Pages/SbiPage/SbiPaage';
 import VerifyPayment from './Pages/VerifyPayment/VerifyPayment';
 import PaymentFailure from './Pages/Payment/PaymentFailurePage';
+import Footer from './Components/Footer/Footer';
 
 function App() {
   const dispatch = useDispatch();
@@ -131,25 +132,27 @@ function App() {
         ) : (
           <>
             {location.pathname !== '/payment' && <Header />}
-
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/about" element={<AboutPage />} />
-              <Route path="/aboutus" element={<AboutUs />} />
-              <Route path="/refund" element={<Refund />} />
-              <Route path="/profile" element={<ProfilePage />} />
-              <Route path="/latestnews" element={<LatestNews />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/events" element={<LatestEvents />} />
-              <Route path="/news-details" element={<NewsDetails />} />
-              <Route path="/event-details" element={<EventDetails />} />
-              <Route path="/privacy-policy" element={<PrivacyAndPolicies />} />
-              <Route path="/terms-conditions" element={<TermsAndConditions />} />
-              <Route path="/payment" element={<Payment />} />
-              <Route path="/sbi-page" element={<SBIPage />} />
-              <Route path="/verifypayment" element={<VerifyPayment />} />
-              <Route path="/payment-failed" element={<PaymentFailure />} />
-            </Routes>
+            <div className="main-content">
+              <Routes >
+                <Route path="/" element={<HomePage />} />
+                <Route path="/about" element={<AboutPage />} />
+                <Route path="/aboutus" element={<AboutUs />} />
+                <Route path="/refund" element={<Refund />} />
+                <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/latestnews" element={<LatestNews />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/events" element={<LatestEvents />} />
+                <Route path="/news-details" element={<NewsDetails />} />
+                <Route path="/event-details" element={<EventDetails />} />
+                <Route path="/privacy-policy" element={<PrivacyAndPolicies />} />
+                <Route path="/terms-conditions" element={<TermsAndConditions />} />
+                <Route path="/payment" element={<Payment />} />
+                <Route path="/sbi-page" element={<SBIPage />} />
+                <Route path="/verifypayment" element={<VerifyPayment />} />
+                <Route path="/payment-failed" element={<PaymentFailure />} />
+              </Routes>
+            </div>
+            <Footer />
           </>
         )}
         {/* </Router> */}

@@ -12,6 +12,15 @@
     padding: 20px; /* added padding for better spacing */
 }
 
+.app-root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.main-content {
+ margin-bottom: 80px; 
+}
+
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {

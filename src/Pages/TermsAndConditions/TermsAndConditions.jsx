@@ -1,7 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useLocation } from "react-router";
 import "./TermsAndConditions.css";
 
 const TermsAndConditions = () => {
+    const location = useLocation();
+
+    useEffect(() => {
+        if (location.hash) {
+            const id = location.hash.replace('#', '');
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    }, [location]);
     return (
         <div className="terms-container">
             <h4 className="privacy-title">Terms and conditions</h4>
@@ -114,11 +126,13 @@ const TermsAndConditions = () => {
                     <li>Donations and account creation fees are non-refundable. All payments are final.</li>
                 </ul>
 
-                <li><strong>16. Contact Information</strong></li>
+                {/* <li><strong>16. Contact Information</strong></li> */}
+                <li id="contact-info"><strong>16. Contact Information</strong></li>
                 <ul>
                     <li>If you have questions about these Terms, contact us at:</li>
-                    <li><strong>Ro-One Technology Private Limited</strong></li>
-                    <li>Gundlapalli, Ongole, Andhra Pradesh</li>
+                    <li><strong>Padmashali Global Trust</strong></li>
+                    <li>Kurnool, Andhra Pradesh</li>
+                    <li>Phone: 8500671976</li>
                     <li>Email: padmashaliglobaltrust@gmail.com</li>
                 </ul>
             </ul>
