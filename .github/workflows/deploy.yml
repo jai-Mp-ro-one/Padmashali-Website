@@ -1,9 +1,9 @@
-name: Deploy to AWS EC2
+name: Deploy React App to AWS EC2
 
 on:
   push:
     branches:
-      - master  # Or your deploy branch
+      - master  # Or your deployment branch
 
 jobs:
   build-and-deploy:
@@ -29,7 +29,29 @@ jobs:
           REACT_APP_SBI_MERCHANT_TEST_KEY: ${{ secrets.REACT_APP_SBI_MERCHANT_TEST_KEY }}
           REACT_APP_SBI_MERCHANT_TEST_ID: ${{ secrets.REACT_APP_SBI_MERCHANT_TEST_ID }}
 
-      - name: Clean target directory on EC2
+      - name: Prepare directories and permissions on EC2
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.EC2_HOST_WEB }}
+          username: ${{ secrets.EC2_USER_WEB }}
+          key: ${{ secrets.EC2_KEY_WEB }}
+          script: |
+            mkdir -p ~/build_temp
+            sudo chown -R $USER:$USER ~/build_temp
+            sudo chown -R $USER:$USER /usr/share/nginx/html
+            sudo rm -rf /usr/share/nginx/html/*
+
+      - name: Copy build folder to temp location on EC2
+        uses: appleboy/scp-action@v0.1.5
+        with:
+          host: ${{ secrets.EC2_HOST_WEB }}
+          username: ${{ secrets.EC2_USER_WEB }}
+          key: ${{ secrets.EC2_KEY_WEB }}
+          source: build/
+          target: ~/build_temp
+          debug: true
+
+      - name: Copy build contents to Nginx root and fix ownership
         uses: appleboy/ssh-action@v0.1.7
         with:
           host: ${{ secrets.EC2_HOST_WEB }}
@@ -37,23 +59,14 @@ jobs:
           key: ${{ secrets.EC2_KEY_WEB }}
           script: |
             sudo rm -rf /usr/share/nginx/html/*
+            sudo cp -r ~/build_temp/. /usr/share/nginx/html/
+            sudo chown -R ubuntu:ubuntu /usr/share/nginx/html
+            sudo rm -rf ~/build_temp
 
-      - name: Copy build to EC2 via SCP
-        uses: appleboy/scp-action@v0.1.5
-        with:
-          host: ${{ secrets.EC2_HOST_WEB }}
-          username: ${{ secrets.EC2_USER_WEB }}
-          key: ${{ secrets.EC2_KEY_WEB }}
-          source: build/*
-          target: /usr/share/nginx/html
-          overwrite: true
-          debug: true
-
-      - name: Reload Nginx to serve new build
+      - name: Reload Nginx to serve the new build
         uses: appleboy/ssh-action@v0.1.7
         with:
           host: ${{ secrets.EC2_HOST_WEB }}
           username: ${{ secrets.EC2_USER_WEB }}
           key: ${{ secrets.EC2_KEY_WEB }}
-          script: |
-            sudo systemctl reload nginx
+          script: sudo systemctl reload nginx
