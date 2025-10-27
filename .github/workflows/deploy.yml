@@ -17,10 +17,13 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_KEY_WEB }}
           script: |
-            # Clone repo if not exists, else update to latest master
+            set -e
+
+            # Clone repository if not already cloned
             if [ ! -d ~/my-react-app ]; then
               git clone https://github.com/jai-Mp-ro-one/Padmashali-Website.git ~/my-react-app
             fi
+
             cd ~/my-react-app
             git fetch origin
             git reset --hard origin/master
@@ -29,14 +32,17 @@ jobs:
             npm ci
             npm run build
 
-            # Clean Nginx web root and copy new build
+            echo "Build folder contents:"
+            ls -lah build
+
+            # Clean Nginx web root and copy build files
             sudo rm -rf /usr/share/nginx/html/*
             sudo cp -r build/. /usr/share/nginx/html/
 
-            # Set ownership and permissions compatible with Nginx running as ubuntu
+            # Set ownership and permissions for Nginx running as ubuntu
             sudo chown -R ubuntu:ubuntu /usr/share/nginx/html
             sudo find /usr/share/nginx/html -type d -exec chmod 755 {} \;
             sudo find /usr/share/nginx/html -type f -exec chmod 644 {} \;
 
-            # Reload Nginx to serve updated app
+            # Reload nginx to serve the new content
             sudo systemctl reload nginx
