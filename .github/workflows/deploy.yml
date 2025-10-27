@@ -3,7 +3,7 @@ name: Deploy to AWS EC2
 on:
   push:
     branches:
-      - master  # Or your target branch
+      - master  # Or your deploy branch
 
 jobs:
   build-and-deploy:
@@ -29,6 +29,15 @@ jobs:
           REACT_APP_SBI_MERCHANT_TEST_KEY: ${{ secrets.REACT_APP_SBI_MERCHANT_TEST_KEY }}
           REACT_APP_SBI_MERCHANT_TEST_ID: ${{ secrets.REACT_APP_SBI_MERCHANT_TEST_ID }}
 
+      - name: Clean target directory on EC2
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.EC2_HOST_WEB }}
+          username: ${{ secrets.EC2_USER_WEB }}
+          key: ${{ secrets.EC2_KEY_WEB }}
+          script: |
+            sudo rm -rf /usr/share/nginx/html/*
+
       - name: Copy build to EC2 via SCP
         uses: appleboy/scp-action@v0.1.5
         with:
@@ -36,7 +45,7 @@ jobs:
           username: ${{ secrets.EC2_USER_WEB }}
           key: ${{ secrets.EC2_KEY_WEB }}
           source: build/*
-          target: ${{ secrets.EC2_TARGET_DIR }}
+          target: /usr/share/nginx/html
 
       - name: Reload Nginx to serve new build
         uses: appleboy/ssh-action@v0.1.7
