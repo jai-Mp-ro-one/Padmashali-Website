@@ -44,8 +44,9 @@ jobs:
           host: ${{ secrets.EC2_HOST_WEB }}
           username: ${{ secrets.EC2_USER_WEB }}
           key: ${{ secrets.EC2_KEY_WEB }}
-          source: build/*
+          source: build/
           target: /usr/share/nginx/html
+          debug: true
 
       - name: Reload Nginx to serve new build
         uses: appleboy/ssh-action@v0.1.7
