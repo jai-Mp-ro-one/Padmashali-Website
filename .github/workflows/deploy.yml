@@ -51,7 +51,7 @@ jobs:
           target: ~/build_temp
           debug: true
 
-      - name: Copy build contents to Nginx root and fix ownership
+      - name: Copy build contents to Nginx root on EC2
         uses: appleboy/ssh-action@v0.1.7
         with:
           host: ${{ secrets.EC2_HOST_WEB }}
@@ -60,8 +60,18 @@ jobs:
           script: |
             sudo rm -rf /usr/share/nginx/html/*
             sudo cp -r ~/build_temp/. /usr/share/nginx/html/
-            sudo chown -R ubuntu:ubuntu /usr/share/nginx/html
             sudo rm -rf ~/build_temp
+
+      - name: Fix ownership and permissions for Nginx
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.EC2_HOST_WEB }}
+          username: ${{ secrets.EC2_USER_WEB }}
+          key: ${{ secrets.EC2_KEY_WEB }}
+          script: |
+            sudo chown -R ubuntu:ubuntu /usr/share/nginx/html
+            sudo find /usr/share/nginx/html -type d -exec chmod 755 {} \;
+            sudo find /usr/share/nginx/html -type f -exec chmod 644 {} \;
 
       - name: Reload Nginx to serve the new build
         uses: appleboy/ssh-action@v0.1.7
