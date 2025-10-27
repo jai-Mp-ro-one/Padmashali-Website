@@ -1,35 +1,12 @@
-// import React from 'react';
-// const SBIPage = () => {
-//     return (
-//         <div>
-//             <p><b>Encrypted</b> Encrypting... EncryptTrans.</p>
-
-//             <form
-//                 name="ecom"
-//                 method="post"
-//                 action="https://test.sbiepay.sbi/secure/AggregatorHostedListener"
-//             >
-//                 <input type="text" name="EncryptTrans" defaultValue="" />
-//                 <input type="text" name="merchIdVal" defaultValue="1000605" />
-//                 <input type="submit" name="submit" value="Submit" />
-//             </form>
-//         </div>
-//     );
-// };
-
-// export default SBIPage
-
-
-
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import CryptoJS from "crypto-js";
 import { useNavigate } from "react-router-dom";
 
-const SBIPage = ({ profileId, donationAmount }) => {
+const SBIPage = () => {
     const [encryptedTransaction, setEncryptedTransaction] = useState("");
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
-    console.log("Encrypted Transaction:", encryptedTransaction);
+    // console.log("Encrypted Transaction:", encryptedTransaction);
 
     const SECRET_KEY = "pWhMnIEMc4q6hKdi2Fx50Ii8CKAoSIqv9ScSpwuMHM4=";
 
@@ -81,11 +58,11 @@ const SBIPage = ({ profileId, donationAmount }) => {
             "ONLINE",
         ].join("|");
 
-        console.log("Transaction Data:", transactionData);
+        // console.log("Transaction Data:", transactionData);
 
         // Encrypt Transaction Data
         const encryptedData = encryptAES256(transactionData, SECRET_KEY);
-        console.log("Encrypted Transaction Data:", encryptedData);
+        // console.log("Encrypted Transaction Data:", encryptedData);
         setEncryptedTransaction(encryptedData);
     }, []);
 

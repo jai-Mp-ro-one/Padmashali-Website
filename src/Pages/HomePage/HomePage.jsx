@@ -1,14 +1,14 @@
-import React from "react";
+// import React from "react";
 import "./HomePage.css";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { useNavigate } from "react-router";
+// import { useNavigate } from "react-router";
 import { Grid, Box } from "@mui/material";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 
 const HomePage = () => {
-    const navigate = useNavigate();
-    const isLoggedIn = useSelector((state) => state.isLoggedIn);
+    // const navigate = useNavigate();
+    // const isLoggedIn = useSelector((state) => state.isLoggedIn);
 
 
     const bannerImages = [

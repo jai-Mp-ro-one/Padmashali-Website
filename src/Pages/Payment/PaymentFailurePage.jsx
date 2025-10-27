@@ -1,8 +1,8 @@
-import React from 'react'
+// import React from 'react'
 const PaymentFailure = () => {
     const handleRedirectToApp = () => {
         const appUrl = `https://padmasaliglobal.com/app/payment-success?amount=${100}&donationwithId=${10}&isPaymentSuccess=${false}`;
-        const fallbackUrl = 'https://play.google.com/store/apps/details?id=com.padmasali';
+        // const fallbackUrl = 'https://play.google.com/store/apps/details?id=com.padmasali';
         window.location.href = appUrl;
     }
     return (

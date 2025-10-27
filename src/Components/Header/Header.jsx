@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -11,23 +11,23 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './Header.css';
-import APIServices from '../../APIServices/APIServices';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-    // setIsLoggedIn,
-    setLoginId,
-    setProfileData,
-    setRefreshToken,
-    setToken,
-    setUniqueDeviceId,
-} from '../../Redux/Action';
+// import APIServices from '../../APIServices/APIServices';
+// import { useDispatch, useSelector } from 'react-redux';
+// import {
+//     // setIsLoggedIn,
+//     setLoginId,
+//     setProfileData,
+//     setRefreshToken,
+//     setToken,
+//     setUniqueDeviceId,
+// } from '../../Redux/Action';
 
 const Header = () => {
     const [drawerOpen, setDrawerOpen] = useState(false);
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
+    // const navigate = useNavigate();
+    // const dispatch = useDispatch();
 
     // const isLoggedIn = useSelector((state) => state.isLoggedIn);
 
@@ -38,21 +38,21 @@ const Header = () => {
         setDrawerOpen(open);
     };
 
-    const handleLogout = async () => {
-        try {
-            await APIServices.handleLogut();
-            console.log('User Logged out successfully');
-            dispatch(setProfileData(null));
-            dispatch(setLoginId(null));
-            dispatch(setUniqueDeviceId(null));
-            dispatch(setToken(null));
-            dispatch(setRefreshToken(null));
-            // dispatch(setIsLoggedIn(false));
-            navigate('/');
-        } catch (error) {
-            console.error('Logout failed:', error);
-        }
-    };
+    // const handleLogout = async () => {
+    //     try {
+    //         await APIServices.handleLogut();
+    //         console.log('User Logged out successfully');
+    //         dispatch(setProfileData(null));
+    //         dispatch(setLoginId(null));
+    //         dispatch(setUniqueDeviceId(null));
+    //         dispatch(setToken(null));
+    //         dispatch(setRefreshToken(null));
+    //         // dispatch(setIsLoggedIn(false));
+    //         navigate('/');
+    //     } catch (error) {
+    //         console.error('Logout failed:', error);
+    //     }
+    // };
 
     const menuItems = [
         { text: 'Home', path: '/' },
