@@ -50,9 +50,6 @@ function App() {
     return state.loginId;
   });
 
-  console.log("uniqueDeviceId: ", uniqueDeviceId)
-  console.log("LoggedId: ", loginId)
-
   const isAccessTokenExpired = (token) => {
     if (token) {
       const decodedToken = jwtDecode(token);
@@ -66,7 +63,8 @@ function App() {
     try {
       APIServices.handleLogut()
         .then((response) => {
-          console.log("User Logged out successfully")
+          // console.log("User Logged out successfully")
+          console.log("User Logged out successfully: ", response.data)
           setRefreshTokenExpired(true)
           dispatch(setProfileData(null))
           dispatch(setLoginId(null))
@@ -104,6 +102,7 @@ function App() {
       });
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const checkTokenStatus = () => {
     if (isAccessTokenExpired(token)) {
       console.log("Access token expired; refreshing...");
@@ -118,11 +117,11 @@ function App() {
     if (token) {
       APIServices.setAuthToken(token, uniqueDeviceId, loginId);
     }
-  }, [token]);
+  }, [loginId, token, uniqueDeviceId]);
 
   useEffect(() => {
     checkTokenStatus();
-  }, [token])
+  }, [checkTokenStatus, token])
   console.log("location :", location.pathname)
   return (
     <div>

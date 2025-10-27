@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import CryptoJS from "crypto-js";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 const SBIPage = () => {
     const [encryptedTransaction, setEncryptedTransaction] = useState("");
@@ -18,6 +18,7 @@ const SBIPage = () => {
     };
 
     // Encrypt using AES-256-CBC 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const encryptAES256 = (data, secretKey) => {
         try {
             const { key, iv } = deriveKeyAndIV(secretKey);
@@ -64,7 +65,7 @@ const SBIPage = () => {
         const encryptedData = encryptAES256(transactionData, SECRET_KEY);
         // console.log("Encrypted Transaction Data:", encryptedData);
         setEncryptedTransaction(encryptedData);
-    }, []);
+    }, [encryptAES256]);
 
     return (
         <div>
