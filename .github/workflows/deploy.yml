@@ -29,7 +29,17 @@ jobs:
           REACT_APP_SBI_MERCHANT_TEST_KEY: ${{ secrets.REACT_APP_SBI_MERCHANT_TEST_KEY }}
           REACT_APP_SBI_MERCHANT_TEST_ID: ${{ secrets.REACT_APP_SBI_MERCHANT_TEST_ID }}
 
-      - name: Clean target directory on EC2
+      - name: Copy build folder to temporary location on EC2
+        uses: appleboy/scp-action@v0.1.5
+        with:
+          host: ${{ secrets.EC2_HOST_WEB }}
+          username: ${{ secrets.EC2_USER_WEB }}
+          key: ${{ secrets.EC2_KEY_WEB }}
+          source: build/
+          target: ~/build_temp
+          debug: true
+
+      - name: Move build contents to Nginx root folder on EC2
         uses: appleboy/ssh-action@v0.1.7
         with:
           host: ${{ secrets.EC2_HOST_WEB }}
@@ -37,16 +47,8 @@ jobs:
           key: ${{ secrets.EC2_KEY_WEB }}
           script: |
             sudo rm -rf /usr/share/nginx/html/*
-
-      - name: Copy build to EC2 via SCP
-        uses: appleboy/scp-action@v0.1.5
-        with:
-          host: ${{ secrets.EC2_HOST_WEB }}
-          username: ${{ secrets.EC2_USER_WEB }}
-          key: ${{ secrets.EC2_KEY_WEB }}
-          source: build/
-          target: /usr/share/nginx/html
-          debug: true
+            sudo mv ~/build_temp/* /usr/share/nginx/html/
+            sudo rm -rf ~/build_temp
 
       - name: Reload Nginx to serve new build
         uses: appleboy/ssh-action@v0.1.7
