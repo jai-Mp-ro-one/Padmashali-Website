@@ -26,12 +26,18 @@ jobs:
             git fetch origin
             git reset --hard origin/master
 
+            # Clean npm cache and remove node_modules to free space
+            npm cache clean --force
+            rm -rf node_modules
+
             # Install dependencies and build React app
             npm ci
             npm run build
 
-            # Clean Nginx web root and copy new build
+            # Clean Nginx web root to remove old files not in use
             sudo rm -rf /usr/share/nginx/html/*
+
+            # Copy new build to Nginx web root
             sudo cp -r build/. /usr/share/nginx/html/
 
             # Set ownership and permissions compatible with Nginx running as ubuntu
