@@ -3,7 +3,7 @@ name: Deploy React App to AWS EC2
 on:
   push:
     branches:
-      - master  # Or your deployment branch
+      - master
 
 jobs:
   build-and-deploy:
