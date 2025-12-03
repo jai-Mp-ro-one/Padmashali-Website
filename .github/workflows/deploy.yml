@@ -1,48 +1,49 @@
-name: Deploy to AWS EC2
+name: Deploy React App to AWS EC2
 
 on:
   push:
     branches:
-      - master  # Or your target branch
+      - master
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build React app
-        run: npm run build
-        env:
-          REACT_APP_SBI: ${{ secrets.REACT_APP_SBI }}
-          REACT_APP_SBI_MERCHANT_ID: ${{ secrets.REACT_APP_SBI_MERCHANT_ID }}
-          REACT_APP_SBI_MERCHANT_TEST_KEY: ${{ secrets.REACT_APP_SBI_MERCHANT_TEST_KEY }}
-          REACT_APP_SBI_MERCHANT_TEST_ID: ${{ secrets.REACT_APP_SBI_MERCHANT_TEST_ID }}
-
-      - name: Copy build to EC2 via SCP
-        uses: appleboy/scp-action@v0.1.5
-        with:
-          host: ${{ secrets.EC2_HOST_WEB }}
-          username: ${{ secrets.EC2_USER_WEB }}
-          key: ${{ secrets.EC2_KEY_WEB }}
-          source: build/*
-          target: ${{ secrets.EC2_TARGET_DIR }}
-
-      - name: Reload Nginx to serve new build
+      - name: Deploy by building on EC2
         uses: appleboy/ssh-action@v0.1.7
         with:
           host: ${{ secrets.EC2_HOST_WEB }}
-          username: ${{ secrets.EC2_USER_WEB }}
+          username: ubuntu
           key: ${{ secrets.EC2_KEY_WEB }}
+          command_timeout: 20m
           script: |
+            # Clone repo if not exists, else update to latest master
+            if [ ! -d ~/my-react-app ]; then
+              git clone https://github.com/jai-Mp-ro-one/Padmashali-Website.git ~/my-react-app
+            fi
+            cd ~/my-react-app
+            git fetch origin
+            git reset --hard origin/master
+
+            # Clean npm cache and remove node_modules to free space
+            npm cache clean --force
+            rm -rf node_modules
+
+            # Install dependencies and build React app
+            npm ci
+            npm run build
+
+            # Clean Nginx web root to remove old files not in use
+            sudo rm -rf /usr/share/nginx/html/*
+
+            # Copy new build to Nginx web root
+            sudo cp -r build/. /usr/share/nginx/html/
+
+            # Set ownership and permissions compatible with Nginx running as ubuntu
+            sudo chown -R ubuntu:ubuntu /usr/share/nginx/html
+            sudo find /usr/share/nginx/html -type d -exec chmod 755 {} \;
+            sudo find /usr/share/nginx/html -type f -exec chmod 644 {} \;
+
+            # Reload Nginx to serve updated app
             sudo systemctl reload nginx
