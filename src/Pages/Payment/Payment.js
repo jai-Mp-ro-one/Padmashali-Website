@@ -87,7 +87,7 @@ const Payment = () => {
                 name="ecom"
                 method="post"
                 // action="https://test.sbiepay.sbi/secure/AggregatorHostedListener" //Test URL
-                action='https://www.sbiepay.sbi/secure/AggregatorHostedListener'
+                action='https://epay.sbi.bank.in/secure/AggregatorHostedListener'
             >
                 <input type="hidden" name="EncryptTrans" value={encryptedTransaction} />
                 <input type="hidden" name="merchIdVal" value={merchantID} />
